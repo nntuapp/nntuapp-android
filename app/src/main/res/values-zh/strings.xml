@@ -1,0 +1,110 @@
+<resources>
+    <string name="app_name">NNTU</string>
+    <string name="title_navigation">导航</string>
+    <string name="title_marks">评测</string>
+    <string name="title_news">新闻</string>
+    <string name="title_settings">帐户</string>
+    <string name="title_article">文章</string>
+    <string name="title_timeTable">时间表</string>
+    <string name="title_timeTableEditor">时间表编辑器</string>
+    <string name="code_Message">要改变日程安排，还需要编写代码</string>
+    <string name="code_advise">该代码可以与我们联系获得：</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="appwidget_text">НГТУ</string>
+    <string name="add_widget">Пары</string>
+    <string name="title_activity_rooms_without_number">RoomsWithoutNumberActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="Сохранено">保存</string>
+    <string name="пары_нет">类有</string>
+    <string name="Показать_существующее_расписание">显示现有计划</string>
+    <string name="Перенести_день_с_другой_недели">有一个星期转让天</string>
+    <string name="Очистить_неделю">每周清除</string>
+    <string name="Очистить_день">晴天</string>
+    <string name="Дополнительные_действия">更多操作</string>
+    <string name="Вы_уверены">你确定吗？</string>
+    <string name="Отмена">消除</string>
+    <string name="Студент_магистратуры">研究生</string>
+    <string name="Студент_бакалавриата_специалитета">本科学生/专业</string>
+    <string name="Кем_вы_являетесь">你是谁？</string>
+    <string name="Преподаватель">老师</string>
+    <string name="Неверный_код">不正确的代码</string>
+    <string name="Введите_код_">输入一个代码！</string>
+    <string name="Вход_не_выполнен">未登录</string>
+    <string name="Выйти">注销</string>
+    <string name="Группа_">组：</string>
+    <string name="Воскресенье">星期日</string>
+    <string name="Суббота">星期六</string>
+    <string name="Пятница">星期五</string>
+    <string name="Четверг">星期四</string>
+    <string name="Среда">星期三</string>
+    <string name="Вторник">星期二</string>
+    <string name="Понедельник">星期一</string>
+    <string name="Произошла_ошибка_при_загрузке">有同时加载错误</string>
+    <string name="семестр">学期</string>
+    <string name="Аудитория_не_найдена">我找不到</string>
+    <string name="Загрузка_новости...">加载消息...</string>
+    <string name="Ошибка">错误</string>
+    <string name="Оценки">评测</string>
+    <string name="Новости">新闻</string>
+    <string name="Настройки">设置</string>
+    <string name="Загрузка...">载入中...</string>
+
+    <string name="Имя">名称</string>
+    <string name="Не_все_поля_заполнены">并非所有的领域都充满。</string>
+    <string name="Дисциплина">学科</string>
+    <string name="первая_кн">1 控制周:</string>
+    <string name="вторая_кн">2 控制周:</string>
+    <string name="Группа">组：</string>
+    <string name="Фамилия">姓</string>
+    <string name="Изменить_расписание">改变时间表</string>
+    <string name="Войти">输入</string>
+    <string name="Номер_студенческого">学生证编号</string>
+    <string name="Этаж">地板</string>
+    <string name="Корпус">住房</string>
+    <string name="сдан">传递</string>
+    <string name="пропусков">失踪</string>
+    <string name="Ауд.">报告厅</string>
+    <string name="Найти">搜索</string>
+    <string name="Все_оценки">所有等级</string>
+    <string name="code1">要改变日程安排，还需要编写代码</string>
+    <string name="code2">该代码可以与我们联系获得：</string>
+    <string name="Назад">前</string>
+    <string name="Введите_аудиторию..">进入观众..</string>
+    <string name="Введите_код">输入代码</string>
+    <string name="Готово">完成</string>
+    <string name="Редактор">编辑</string>
+    <string name="Далее">进一步</string>
+
+
+    <string name="Группа_ВК">VK集团</string>
+    <string name="Четная">偶数</string>
+    <string name="Нечетная">奇</string>
+    <string name="Еще_действия">更多操作</string>
+    <string name="Ещё">然而</string>
+    <string name="Отчество">中间名字</string>
+    <string name="Номер_билета">学生身份证号码</string>
+    <string name="Виджет">窗口小部件更新每半小时</string>
+    <string name="Не_удалось">无法进入</string>
+    <string name="Аудитория_не_является_числом">观众是不是数字</string>
+    <string name="Не_удалось_новость">无法加载消息</string>
+    <string name="Расписание_загружено">加载进度</string>
+    <string name="Ошибка_при_загрузке">错误加载</string>
+    <string name="Расписание_сохранено">保存时间表</string>
+    <string name="Поиск_аудитории">搜索观众</string>
+
+    <string name="Понятно">明确</string>
+    <string name="Зачем_нужен_код">为什么我需要的代码？</string>
+    <string name="Сообщение_с_кодом">该代码是必要的，以防止损害的时间表。随着代码接收程序的帮助下，我们可以跟踪和谁改变了他的日程安排，如果需要限制访问。该代码是每24小时更新一次。</string>
+    <string name="Темная_тема">自动黑暗的主题支持Android上10以上</string>
+    <string name="title_activity_dbtt_editor">Timetable editor</string>
+
+</resources>

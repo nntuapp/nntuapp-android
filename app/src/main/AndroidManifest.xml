@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.alexxingplus.nntuandroid"
+    android:installLocation="preferExternal">
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.AverageMarkActivity"
+            android:label="Средний балл"/>
+        <activity
+            android:name=".ui.ShowALessonActivity"
+            android:label="@string/title_timeTable" />
+        <activity
+            android:name=".ui.singleEditorDBTT"
+            android:label="@string/title_activity_single_editor_d_b_t_t"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.DbttEditorActivity"
+            android:label="@string/title_activity_dbtt_editor"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <receiver android:name=".veryBig">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/very_big_info" />
+        </receiver>
+        <receiver android:name=".smol">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/smol_info" />
+        </receiver>
+
+        <activity
+            android:name=".MoreRoomsActivity"
+            android:label="@string/Поиск_аудитории" />
+        <activity
+            android:name=".ui.Editor"
+            android:label="@string/Редактор" />
+        <activity
+            android:name=".ui.CodeActivity"
+            android:label="@string/Редактор" />
+        <activity
+            android:name=".ui.SingleMarkActivity"
+            android:label="@string/Оценки" />
+        <activity
+            android:name=".ui.ArticleActivity"
+            android:label="@string/title_article" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

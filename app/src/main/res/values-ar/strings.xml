@@ -1,0 +1,109 @@
+<resources>
+    <string name="app_name">NNTU</string>
+    <string name="title_navigation">التنقل</string>
+    <string name="title_marks">تقييم</string>
+    <string name="title_news">أخبار</string>
+    <string name="title_settings">الحساب</string>
+    <string name="title_article">أخبار</string>
+    <string name="title_timeTable">الجدول الزمني</string>
+    <string name="title_timeTableEditor">محرر</string>
+    <string name="code_Message">لتغيير الجدول الزمني، وأنت بحاجة إلى رمز</string>
+    <string name="code_advise">ويمكن الحصول على رمز عن طريق الاتصال بنا:</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="appwidget_text">NNTU</string>
+    <string name="add_widget">Пары</string>
+    <string name="title_activity_rooms_without_number">RoomsWithoutNumberActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="Сохранено">تم الحفظ</string>
+    <string name="пары_нет">فصول هناك</string>
+    <string name="Показать_существующее_расписание">عرض الجدول الزمني الحالي</string>
+    <string name="Перенести_день_с_другой_недели">نقل اليوم مع أسبوع آخر</string>
+    <string name="Очистить_неделю">الأسبوع اضح</string>
+    <string name="Очистить_день">واضح اليوم</string>
+    <string name="Дополнительные_действия">مزيد من الإجراءات</string>
+    <string name="Вы_уверены">هل أنت واثق؟</string>
+    <string name="Отмена">إلغاء</string>
+    <string name="Студент_магистратуры">متخرج</string>
+    <string name="Студент_бакалавриата_специалитета">طالب بكالوريوس / التخصص</string>
+    <string name="Кем_вы_являетесь">من أنت؟</string>
+    <string name="Преподаватель">مدرس</string>
+    <string name="Неверный_код">شفرة خاطئة</string>
+    <string name="Введите_код_">أدخل رمز!</string>
+    <string name="Вход_не_выполнен">لم تقم بتسجيل الدخول</string>
+    <string name="Выйти">إطفاء</string>
+    <string name="Группа_">مجموعة:</string>
+    <string name="Воскресенье">الأحد</string>
+    <string name="Суббота">يوم السبت</string>
+    <string name="Пятница">يوم الجمعة</string>
+    <string name="Четверг">الخميس</string>
+    <string name="Среда">الأربعاء</string>
+    <string name="Вторник">الثلاثاء</string>
+    <string name="Понедельник">الإثنين</string>
+    <string name="Произошла_ошибка_при_загрузке">حدث خطأ أثناء تحميل</string>
+    <string name="семестр">نصف السنة</string>
+    <string name="Аудитория_не_найдена">لا أستطيع العثور</string>
+    <string name="Загрузка_новости..."> تحميل الأخبار...</string>
+    <string name="Ошибка">خطأ</string>
+    <string name="Оценки">تقييم</string>
+    <string name="Новости">أخبار</string>
+    <string name="Настройки">إعدادات</string>
+    <string name="Загрузка...">جار التحميل...</string>
+
+    <string name="Имя">اسم</string>
+    <string name="Не_все_поля_заполнены">لا تمتلئ جميع المجالات.</string>
+    <string name="Дисциплина">انضباط</string>
+    <string name="первая_кн">1 الأسبوع السيطرة</string>
+    <string name="вторая_кн">2 الأسبوع السيطرة</string>
+    <string name="Группа">مجموعة:</string>
+    <string name="Фамилия">لقب</string>
+    <string name="Изменить_расписание">جدول التغيير</string>
+    <string name="Войти">أدخل (تسجيل الدخول)</string>
+    <string name="Номер_студенческого">عدد من بطاقة الطالب</string>
+    <string name="Этаж">أرضية</string>
+    <string name="Корпус">إسكان</string>
+    <string name="сдан">صدر</string>
+    <string name="пропусков">مفقود</string>
+    <string name="Ауд.">قاعة المحاضرات</string>
+    <string name="Найти">لايجاد</string>
+    <string name="Все_оценки">جميع الصفوف</string>
+    <string name="code1">لتغيير الجدول الزمني، وأنت بحاجة إلى رمز</string>
+    <string name="code2">ويمكن الحصول على رمز عن طريق الاتصال بنا:</string>
+    <string name="Назад">منذ</string>
+    <string name="Введите_аудиторию..">أدخل الجمهور ..</string>
+    <string name="Введите_код">أدخل رمز!</string>
+    <string name="Готово">منجز</string>
+    <string name="Редактор">محرر</string>
+    <string name="Далее">بالإضافة إلى ذلك</string>
+
+    <string name="Группа_ВК">المجموعة VK</string>
+    <string name="Четная">وحتى</string>
+    <string name="Нечетная">غريب</string>
+    <string name="Еще_действия">إجراء آخر</string>
+    <string name="Ещё">بعد</string>
+    <string name="Отчество">الاسم الأوسط</string>
+    <string name="Номер_билета">عدد من بطاقة الطالب</string>
+    <string name="Виджет">يتم تحديث القطعة كل نصف ساعة</string>
+    <string name="Не_удалось">غير قادر على الدخول</string>
+    <string name="Аудитория_не_является_числом">الجمهور ليس عددا</string>
+    <string name="Не_удалось_новость">فشل تحميل الأخبار</string>
+    <string name="Расписание_загружено">جدول تحميل</string>
+    <string name="Ошибка_при_загрузке">خطأ في تحميل</string>
+    <string name="Расписание_сохранено">حفظ جدول</string>
+    <string name="Поиск_аудитории">البحث جمهور</string>
+
+    <string name="Понятно">واضح</string>
+    <string name="Зачем_нужен_код">لماذا أحتاج إلى رمز؟</string>
+    <string name="Сообщение_с_кодом">رمز ضروري للحماية من ضرر للجدول الزمني. مع مساعدة من قانون الإجراءات المستقبلة، يمكننا تتبع متى والذين غيروا جدول أعماله لتقييد الوصول إذا لزم الأمر. يتم تحديث رمز كل 24 ساعة.</string>
+    <string name="Темная_тема">ويدعم موضوع الظلام التلقائي على الروبوت 10 وفوق</string>
+    <string name="title_activity_dbtt_editor">Timetable editor</string>
+
+</resources>

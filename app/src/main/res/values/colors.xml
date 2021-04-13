@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#000000</color>
+    <color name="NNTUblue">#0072bc</color>
+    <color name="NNTUred">#9e280e</color>
+    <color name="lighterNNTUblue">#1296EC</color>
+    <color name="lighterNNTUred">#D34E30</color>
+</resources>

@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:clipChildren="false"
+    tools:context=".ui.CodeActivity"
+    android:background="?android:attr/colorBackground">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="40dp"
+            android:clipChildren="false">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Изменения в расписании"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif"
+                android:textAllCaps="true"
+                android:gravity="start"/>
+
+            <androidx.cardview.widget.CardView
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:clipToPadding="true"
+                android:id="@+id/editorCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="5dp"
+                app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                <TextView
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Редактор расписания"
+                    android:textSize="17sp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="?attr/color"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="5dp"
+                android:clickable="false"
+                app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="end">
+
+                    <TextView
+                        android:padding="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="70dp"
+                        android:text="Автоматически загружать обновления с сервера"
+                        android:textSize="17sp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="?attr/color"/>
+
+                    <Switch
+                        android:id="@+id/updateSwitch"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"/>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="При включенной функции онлайн расписание загружается в память вместо оффлайн-расписания  Если вы не хотите, чтобы вместо вашего оффлайн-расписания загрузилось онлайн-расписание, выключите эту функцию."
+                android:textSize="12sp"
+                android:fontFamily="sans-serif"
+                android:textAllCaps="false"
+                android:layout_marginBottom="25dp"
+                android:gravity="start"/>
+
+
+
+
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Отображение расписания и внешний вид"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif"
+                android:textAllCaps="true"
+                android:gravity="start"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="5dp"
+                android:clickable="false"
+                app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="end">
+
+                    <TextView
+                        android:padding="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="70dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Тема оформления"
+                        android:textSize="17sp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center_vertical"
+                        android:textColor="?attr/color"/>
+
+                    <!--                    <Switch-->
+                    <!--                        android:id="@+id/calendarSwitch"-->
+                    <!--                        android:layout_marginEnd="10dp"-->
+                    <!--                        android:layout_marginStart="10dp"-->
+                    <!--                        android:layout_width="50dp"-->
+                    <!--                        android:layout_height="match_parent"/>-->
+
+                    <ImageButton
+                        android:id="@+id/darkModeButton"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:clipToPadding="true"
+                        android:background="@drawable/radius"
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        android:elevation="5dp"
+                        android:src="@drawable/ic_sun"
+                        android:tint="@color/NNTUblue"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="5dp"
+                android:clickable="false"
+                app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="end">
+
+                    <TextView
+                        android:padding="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="70dp"
+                        android:text="Показывать подробно все занятия"
+                        android:textSize="17sp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="?attr/color"/>
+
+                    <Switch
+                        android:id="@+id/areAllActiveSwitch"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="5dp"
+                android:clickable="false"
+                app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="end">
+
+                    <TextView
+                        android:padding="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="70dp"
+                        android:text="Переносить занятия в календарь автоматически (бета)"
+                        android:textSize="17sp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="?attr/color"/>
+
+                    <Switch
+                        android:id="@+id/calendarSwitch"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <TextView
+                android:id="@+id/smartFooter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Сейчас расписание переносится в стандартное приложение календаря. Теперь вы можете планировать свои дела с учётом занятий. Если вы хотите убрать расписание из календаря - выключите эту функцию."
+                android:textSize="12sp"
+                android:fontFamily="sans-serif"
+                android:textAllCaps="false"
+                android:layout_marginBottom="25dp"
+                android:gravity="start"/>
+
+
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Онлайн-расписание"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif"
+                android:textAllCaps="true"
+                android:gravity="start" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="5dp"
+                app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="end">
+
+                    <EditText
+                        android:id="@+id/codeField"
+                        android:padding="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="65dp"
+                        android:hint="Код"
+                        android:background="@drawable/radius"
+                        android:textSize="17sp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="?attr/color"/>
+
+                    <ImageButton
+                        android:id="@+id/uploadButton"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:clipToPadding="true"
+                        android:background="@drawable/radius"
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        android:elevation="5dp"
+                        android:src="@drawable/ic_cloud_upload_24px"
+                        android:tint="@color/NNTUblue"/>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Вы можете сделать расписание доступным всей группе, загрузив его на сервер. Для этого нужен код, его вы можете получить по контактам ниже."
+                android:textSize="12sp"
+                android:fontFamily="sans-serif"
+                android:textAllCaps="false"
+                android:layout_marginBottom="25dp"
+                android:gravity="start"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Контакты"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif"
+                android:textAllCaps="true"
+                android:gravity="start" />
+
+            <androidx.cardview.widget.CardView
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:clipToPadding="true"
+                android:id="@+id/mailCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="5dp"
+                app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                <TextView
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Почта: nntuapp@inbox.ru"
+                    android:textSize="17sp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="?attr/color"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:clipToPadding="true"
+                android:id="@+id/vkCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="5dp"
+                app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                <TextView
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Группа Вконтакте"
+                    android:textSize="17sp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="?attr/color"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Приложение НГТУ\n\nАлексей Шерстнев\nДмитрий Юдин"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif"
+                android:textAllCaps="false"
+                android:layout_marginBottom="40dp"
+                android:gravity="start"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

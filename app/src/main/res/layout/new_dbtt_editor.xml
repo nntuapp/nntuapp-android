@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <LinearLayout
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/radius"
+                android:elevation="5dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:clipToPadding="true"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:elevation="5dp"
+                    android:padding="10dp"
+                    android:tint="?attr/colorAccent"
+                    android:id="@+id/leftEditButton"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/left_arrow"/>
+
+                <TextView
+                    android:id="@+id/dayLabel"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:fontFamily="sans-serif"
+                    android:textColor="?attr/color"
+                    android:text="Понедельник"/>
+
+                <ImageButton
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:clipToPadding="true"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:elevation="5dp"
+                    android:padding="10dp"
+                    android:tint="?attr/colorAccent"
+                    android:id="@+id/rightEditButton"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/right_arrow"/>
+
+            </LinearLayout>
+
+            <ImageButton
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/radius"
+                android:elevation="5dp"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:tint="?attr/colorAccent"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_save"/>
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lessonList"
+            android:divider="@null"
+            android:clipChildren="false"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

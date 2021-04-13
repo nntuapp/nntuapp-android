@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="5dp"
+        android:clipChildren="false"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="50dp"
+            android:orientation="horizontal"
+            android:layout_gravity="start">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/radius"
+                android:elevation="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <ImageButton
+                    android:id="@+id/prevSemButton"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:clipToPadding="true"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:tint="@color/NNTUblue"
+                    android:src="@drawable/left_arrow" />
+
+                <TextView
+                    android:id="@+id/semLabel"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/Понедельник"
+                    android:fontFamily="sans-serif"
+                    android:textColor="?attr/color"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+
+                <ImageButton
+                    android:id="@+id/nextSemButton"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:clipToPadding="true"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:tint="@color/NNTUblue"
+                    android:src="@drawable/right_arrow"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+        <ImageButton
+            android:id="@+id/statsButton"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:clipToPadding="true"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:background="@drawable/radius"
+            android:elevation="10dp"
+            android:src="@drawable/chart_24px"
+            android:tint="@color/NNTUblue"/>
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

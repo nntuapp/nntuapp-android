@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">НГТУ</string>
+    <string name="title_navigation">Навигация</string>
+    <string name="title_marks">Оценки</string>
+    <string name="title_news">Новости</string>
+    <string name="title_settings">Аккаунт</string>
+    <string name="title_article">Новость</string>
+    <string name="title_timeTable">Расписание</string>
+    <string name="title_timeTableEditor">Редактор расписания</string>
+    <string name="code_Message">Для того, чтобы изменить расписание, необходим код</string>
+    <string name="code_advise">Код можно получить, связавшись с нами: </string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="appwidget_text">НГТУ</string>
+    <string name="add_widget">Пары</string>
+    <string name="title_activity_rooms_without_number">RoomsWithoutNumberActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="Сохранено">Сохранено</string>
+    <string name="пары_нет">пары нет</string>
+    <string name="Показать_существующее_расписание">Показать существующее расписание</string>
+    <string name="Перенести_день_с_другой_недели">Перенести день с другой недели</string>
+    <string name="Очистить_неделю">Очистить неделю</string>
+    <string name="Очистить_день">Очистить день</string>
+    <string name="Дополнительные_действия">Дополнительные действия</string>
+    <string name="Вы_уверены">Вы уверены?</string>
+    <string name="Отмена">Отмена</string>
+    <string name="Студент_магистратуры">Студент магистратуры</string>
+    <string name="Студент_бакалавриата_специалитета">Студент бакалавриата/специалитета</string>
+    <string name="Кем_вы_являетесь">Кем вы являетесь?</string>
+    <string name="Преподаватель">Преподаватель</string>
+    <string name="Неверный_код">Неверный код</string>
+    <string name="Введите_код_">Введите код!</string>
+    <string name="Вход_не_выполнен">Вход не выполнен</string>
+    <string name="Выйти">Выйти</string>
+    <string name="Группа_">Группа:</string>
+    <string name="Воскресенье">Воскресенье</string>
+    <string name="Суббота">Суббота</string>
+    <string name="Пятница">Пятница</string>
+    <string name="Четверг">Четверг</string>
+    <string name="Среда">Среда</string>
+    <string name="Вторник">Вторник</string>
+    <string name="Понедельник">Понедельник</string>
+    <string name="Произошла_ошибка_при_загрузке">Произошла ошибка при загрузке</string>
+    <string name="семестр">семестр</string>
+    <string name="Аудитория_не_найдена">Аудитория не найдена</string>
+    <string name="Загрузка_новости...">Загрузка новости...</string>
+    <string name="Ошибка">Ошибка</string>
+    <string name="Оценки">Оценки</string>
+    <string name="Новости">Новости</string>
+    <string name="Настройки">Настройки</string>
+    <string name="Загрузка...">Загрузка...</string>
+
+    <string name="Имя">Имя</string>
+    <string name="Не_все_поля_заполнены">Не все поля заполнены</string>
+    <string name="Дисциплина">Дисциплина</string>
+    <string name="первая_кн">1 кн:</string>
+    <string name="вторая_кн">2 кн:</string>
+    <string name="Группа">Группа</string>
+    <string name="Фамилия">Фамилия</string>
+    <string name="Изменить_расписание">Изменить расписание</string>
+    <string name="Войти">Войти</string>
+    <string name="Номер_студенческого">Номер студенческого</string>
+    <string name="Этаж">Этаж</string>
+    <string name="Корпус">Корпус</string>
+    <string name="сдан">сдан</string>
+    <string name="пропусков">пропущено</string>
+    <string name="Ауд.">Ауд.</string>
+    <string name="Найти">Найти</string>
+    <string name="Все_оценки">Все оценки</string>
+    <string name="code1">Для того, чтобы изменить расписание, необходим код</string>
+    <string name="code2">Код можно получить, связавшись с нами:</string>
+    <string name="Назад">Назад</string>
+    <string name="Введите_аудиторию..">Введите аудиторию..</string>
+    <string name="Введите_код">Введите код</string>
+    <string name="Готово">Готово</string>
+    <string name="Редактор">Редактор</string>
+    <string name="Далее">Далее</string>
+
+
+    <string name="Группа_ВК">Группа ВК</string>
+    <string name="Четная">Четная</string>
+    <string name="Нечетная">Нечётная</string>
+    <string name="Еще_действия">Ещё действия</string>
+    <string name="Ещё">Ещё</string>
+    <string name="Отчество">Отчество</string>
+    <string name="Номер_билета">Номер билета</string>
+    <string name="Виджет">Виджет обновляется каждые полчаса</string>
+    <string name="Не_удалось">Не удалось войти</string>
+    <string name="Аудитория_не_является_числом">Аудитория не является числом</string>
+    <string name="Не_удалось_новость">Не удалось загрузить новость</string>
+    <string name="Расписание_загружено">Расписание загружено на сервер</string>
+    <string name="Ошибка_при_загрузке">Ошибка при загрузке</string>
+    <string name="Расписание_сохранено">Расписание сохранено</string>
+    <string name="Поиск_аудитории">Поиск аудитории</string>
+
+    <string name="Понятно">Понятно</string>
+    <string name="Зачем_нужен_код">Зачем нужен код?</string>
+    <string name="Сообщение_с_кодом">Код необходим, чтобы обеспечить защиту от нанесения вреда расписанию. С помощью процедуры получения кода мы можем отследить, кто и когда менял расписание, чтобы при необходимости ограничивать доступ. Код добновляется каждые 24 часа.</string>
+    <string name="Темная_тема">Автоматическая темная тема поддерживается на Android 10 и выше</string>
+    <string name="title_activity_dbtt_editor">Редактор расписания</string>
+    <string name="title_activity_single_editor_d_b_t_t">Редактор</string>
+
+</resources>

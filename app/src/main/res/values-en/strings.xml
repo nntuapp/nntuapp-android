@@ -1,0 +1,110 @@
+<resources>
+    <string name="app_name">NNTU</string>
+    <string name="title_navigation">Navigation</string>
+    <string name="title_marks">Marks</string>
+    <string name="title_news">News</string>
+    <string name="title_settings">Account</string>
+    <string name="title_article">Article</string>
+    <string name="title_timeTable">Timetable</string>
+    <string name="title_timeTableEditor">Timetable editor</string>
+    <string name="code_Message">You need a code to change the timetable</string>
+    <string name="code_advise">You can get the code by contacting us: </string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="appwidget_text">NNTU</string>
+    <string name="add_widget">Пары</string>
+    <string name="title_activity_rooms_without_number">RoomsWithoutNumberActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="Сохранено">Saved</string>
+    <string name="пары_нет">lesson is missing</string>
+    <string name="Показать_существующее_расписание">Show the timetable that already exists</string>
+    <string name="Перенести_день_с_другой_недели">Copy the day from another week</string>
+    <string name="Очистить_неделю">Clear the week</string>
+    <string name="Очистить_день">Clear the day</string>
+    <string name="Дополнительные_действия">More actions</string>
+    <string name="Вы_уверены">Are you sure?</string>
+    <string name="Отмена">Cancel</string>
+    <string name="Студент_магистратуры">Master degree student</string>
+    <string name="Студент_бакалавриата_специалитета">Bachelor / specialty student</string>
+    <string name="Кем_вы_являетесь">Who are you?</string>
+    <string name="Преподаватель">Teacher</string>
+    <string name="Неверный_код">The code is wrong</string>
+    <string name="Введите_код_">Enter the code!</string>
+    <string name="Вход_не_выполнен">You aren\'t signed in</string>
+    <string name="Выйти">Sign out</string>
+    <string name="Группа_">Group:</string>
+    <string name="Воскресенье">Sunday</string>
+    <string name="Суббота">Saturday</string>
+    <string name="Пятница">Friday</string>
+    <string name="Четверг">Thursday</string>
+    <string name="Среда">Wednesday</string>
+    <string name="Вторник">Tuesday</string>
+    <string name="Понедельник">Monday</string>
+    <string name="Произошла_ошибка_при_загрузке">A loading error has occurred</string>
+    <string name="семестр">semester</string>
+    <string name="Аудитория_не_найдена">The room is not found</string>
+    <string name="Загрузка_новости...">The article is loading...</string>
+    <string name="Ошибка">Error</string>
+    <string name="Оценки">Marks</string>
+    <string name="Новости">News</string>
+    <string name="Настройки">Settings</string>
+    <string name="Загрузка...">Loading...</string>
+
+    <string name="Имя">Name</string>
+    <string name="Не_все_поля_заполнены">Please fill every field</string>
+    <string name="Дисциплина">Subject</string>
+    <string name="первая_кн">1 contol week:</string>
+    <string name="вторая_кн">2 control week:</string>
+    <string name="Группа">Group</string>
+    <string name="Фамилия">Second Name</string>
+    <string name="Изменить_расписание">Change the timetable</string>
+    <string name="Войти">Sign in</string>
+    <string name="Номер_студенческого">Student ID</string>
+    <string name="Этаж">Floor</string>
+    <string name="Корпус">Build.</string>
+    <string name="сдан">done</string>
+    <string name="пропусков">missing</string>
+    <string name="Ауд.">Room</string>
+    <string name="Найти">Search</string>
+    <string name="Все_оценки">All your marks</string>
+    <string name="code1">You need a code to change the timetable</string>
+    <string name="code2">You can get the code by contacting us:</string>
+    <string name="Назад">Back</string>
+    <string name="Введите_аудиторию..">Enter the room..</string>
+    <string name="Введите_код">Enter the code</string>
+    <string name="Готово">Done</string>
+    <string name="Редактор">Timetable editor</string>
+    <string name="Далее">Next</string>
+
+
+    <string name="Группа_ВК">VK Group</string>
+    <string name="Четная">Even</string>
+    <string name="Нечетная">Odd</string>
+    <string name="Еще_действия">More actions</string>
+    <string name="Ещё">More</string>
+    <string name="Отчество">Patronymic</string>
+    <string name="Номер_билета">Student ID</string>
+    <string name="Виджет">The widget updates every 30 minutes</string>
+    <string name="Не_удалось">Can\'t enter</string>
+    <string name="Аудитория_не_является_числом">The room isn\'t a number</string>
+    <string name="Не_удалось_новость">Can\'t load the article</string>
+    <string name="Расписание_загружено">The timetable is uploaded</string>
+    <string name="Ошибка_при_загрузке">Uploading error</string>
+    <string name="Расписание_сохранено">The timetable is saved</string>
+    <string name="Поиск_аудитории">Room search</string>
+
+    <string name="Понятно">OK</string>
+    <string name="Зачем_нужен_код">Is the code necessary?</string>
+    <string name="Сообщение_с_кодом">Yes, it is. We need it to protect the timetable from harmful random changes. With giving a code we can be aware of who the person is and if something went wrong we can block the spammer and never give the code again. The code updates every 24 hours.</string>
+    <string name="Темная_тема">Dark theme changes automatically on Android 10 and higher</string>
+    <string name="title_activity_dbtt_editor">Timetable editor</string>
+
+</resources>

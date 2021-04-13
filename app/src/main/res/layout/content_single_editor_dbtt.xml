@@ -1,0 +1,848 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="?android:attr/colorBackground">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <EditText
+                android:id="@+id/nameFieldTT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:hint="Название"
+                android:fontFamily="sans-serif-black"
+                android:textSize="20sp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:text="Тип занятия"
+                android:fontFamily="sans-serif"
+                android:textSize="12dp"
+                android:textAllCaps="true"/>
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:clipChildren="false">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:clipChildren="false"
+
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/lectionCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="5dp"
+                        app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                        <TextView
+                            android:id="@+id/lectionLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:fontFamily="sans-serif-black"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="Лекция"
+                            android:textColor="?attr/color"
+                            android:textSize="15sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/practiceCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="5dp"
+                        app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                        <TextView
+                            android:id="@+id/practiceLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:fontFamily="sans-serif-black"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="Практика"
+                            android:textColor="?attr/color"
+                            android:textSize="15sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/labCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="5dp"
+                        app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                        <TextView
+                            android:id="@+id/labLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:fontFamily="sans-serif-black"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="Лаб.работа"
+                            android:textColor="?attr/color"
+                            android:textSize="15sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/otherTypeCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="5dp"
+                        app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                        <EditText
+                            android:id="@+id/otherTypeField"
+                            android:layout_width="150dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/radius"
+                            android:fontFamily="sans-serif-black"
+                            android:hint="Другое..."
+                            android:padding="10dp"
+                            android:textSize="15sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <EditText
+                android:id="@+id/roomField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:hint="Аудитория"
+                android:fontFamily="sans-serif-black"
+                android:textSize="20sp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:text="Если аудиторий несколько - напишите через запятую"
+                android:fontFamily="sans-serif"
+                android:textSize="10dp"
+                android:layout_marginTop="0dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:text="Время занятия"
+                android:fontFamily="sans-serif"
+                android:textSize="12dp"
+                android:textAllCaps="true"/>
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:clipChildren="false">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:clipChildren="false"
+
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/firstParaCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="5dp"
+                        android:layout_marginEnd="5dp"
+                        app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="75dp"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:textSize="10sp"
+                                android:text="1 пара"/>
+                            <TextView
+                                android:id="@+id/firstParaStart"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="?attr/color"
+                                android:textSize="15sp"
+                                android:text="23:59"/>
+
+                            <View
+                                android:layout_width="7dp"
+                                android:layout_height="1dp"
+                                android:background="?attr/color"/>
+
+                            <TextView
+                                android:id="@+id/firstParaStop"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="?attr/color"
+                                android:textSize="15sp"
+                                android:text="23:59"/>
+
+                        </LinearLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/secondParaCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="5dp"
+                        android:layout_marginEnd="5dp"
+                        app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="75dp"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:textSize="10sp"
+                                android:text="2 пара"/>
+                            <TextView
+                                android:id="@+id/secondParaStart"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="?attr/color"
+                                android:textSize="15sp"
+                                android:text="23:59"/>
+
+                            <View
+                                android:layout_width="7dp"
+                                android:layout_height="1dp"
+                                android:background="?attr/color"/>
+
+                            <TextView
+                                android:id="@+id/secondParaStop"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="?attr/color"
+                                android:textSize="15sp"
+                                android:text="23:59"/>
+
+                        </LinearLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/thirdParaCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="5dp"
+                        android:layout_marginEnd="5dp"
+                        app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="75dp"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:textSize="10sp"
+                                android:text="3 пара"/>
+                            <TextView
+                                android:id="@+id/thirdParaStart"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="?attr/color"
+                                android:textSize="15sp"
+                                android:text="23:59"/>
+
+                            <View
+                                android:layout_width="7dp"
+                                android:layout_height="1dp"
+                                android:background="?attr/color"/>
+
+                            <TextView
+                                android:id="@+id/thirdParaStop"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="?attr/color"
+                                android:textSize="15sp"
+                                android:text="23:59"/>
+
+                        </LinearLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/fourthParaCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="5dp"
+                        android:layout_marginEnd="5dp"
+                        app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="75dp"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:textSize="10sp"
+                                android:text="4 пара"/>
+                            <TextView
+                                android:id="@+id/fourthParaStart"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="?attr/color"
+                                android:textSize="15sp"
+                                android:text="23:59"/>
+
+                            <View
+                                android:layout_width="7dp"
+                                android:layout_height="1dp"
+                                android:background="?attr/color"/>
+
+                            <TextView
+                                android:id="@+id/fourthParaStop"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="?attr/color"
+                                android:textSize="15sp"
+                                android:text="23:59"/>
+
+                        </LinearLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/fifthParaCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="5dp"
+                        android:layout_marginEnd="5dp"
+                        app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="75dp"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:textSize="10sp"
+                                android:text="5 пара"/>
+                            <TextView
+                                android:id="@+id/fifthParaStart"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="?attr/color"
+                                android:textSize="15sp"
+                                android:text="23:59"/>
+
+                            <View
+                                android:layout_width="7dp"
+                                android:layout_height="1dp"
+                                android:background="?attr/color"/>
+
+                            <TextView
+                                android:id="@+id/fifthParaStop"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="?attr/color"
+                                android:textSize="15sp"
+                                android:text="23:59"/>
+
+                        </LinearLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/sixthParaCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="5dp"
+                        android:layout_marginEnd="5dp"
+                        app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="75dp"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:textSize="10sp"
+                                android:text="6 пара"/>
+                            <TextView
+                                android:id="@+id/sixthParaStart"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="?attr/color"
+                                android:textSize="15sp"
+                                android:text="23:59"/>
+
+                            <View
+                                android:layout_width="7dp"
+                                android:layout_height="1dp"
+                                android:background="?attr/color"/>
+
+                            <TextView
+                                android:id="@+id/sixthParaStop"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="?attr/color"
+                                android:textSize="15sp"
+                                android:text="23:59"/>
+
+                        </LinearLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/seventhParaCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="5dp"
+                        android:layout_marginEnd="5dp"
+                        app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="75dp"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:textSize="10sp"
+                                android:text="7 пара"/>
+                            <TextView
+                                android:id="@+id/seventhParaStart"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="?attr/color"
+                                android:textSize="15sp"
+                                android:text="23:59"/>
+
+                            <View
+                                android:layout_width="7dp"
+                                android:layout_height="1dp"
+                                android:background="?attr/color"/>
+
+                            <TextView
+                                android:id="@+id/seventhParaStop"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="?attr/color"
+                                android:textSize="15sp"
+                                android:text="23:59"/>
+
+                        </LinearLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/customParaCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="5dp"
+                        app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="75dp"
+                            android:padding="10dp"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="start">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif"
+                                    android:textSize="10sp"
+                                    android:text="Начало"/>
+
+                                <EditText
+                                    android:id="@+id/customStartField"
+                                    android:layout_width="60dp"
+                                    android:layout_height="wrap_content"
+                                    android:hint="8:00"
+                                    android:fontFamily="sans-serif-black"
+                                    android:textSize="17sp"
+                                    android:gravity="start"
+                                    />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="start">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif"
+                                    android:textSize="10sp"
+                                    android:text="Конец"/>
+
+                                <EditText
+                                    android:id="@+id/customStopField"
+                                    android:layout_width="60dp"
+                                    android:layout_height="wrap_content"
+                                    android:hint="9:45"
+                                    android:fontFamily="sans-serif-black"
+                                    android:textSize="17sp"
+                                    android:gravity="start"
+                                    />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:text="Недели"
+                android:fontFamily="sans-serif"
+                android:textSize="12dp"
+                android:textAllCaps="true"/>
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:clipChildren="false">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:clipChildren="false"
+
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/evenCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="5dp"
+                        app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                        <TextView
+                            android:id="@+id/evenLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:fontFamily="sans-serif-black"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="Четные"
+                            android:textColor="?attr/color"
+                            android:textSize="15sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/oddCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:focusable="true"
+                        android:layout_marginStart="5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="5dp"
+                        app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                        <TextView
+                            android:id="@+id/oddLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:fontFamily="sans-serif-black"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="Нечетные"
+                            android:textColor="?attr/color"
+                            android:textSize="15sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/customWeekCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="5dp"
+                        app:cardBackgroundColor="?attr/cardBackgroundColor">
+
+                        <EditText
+                            android:id="@+id/customWeekField"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/radius"
+                            android:fontFamily="sans-serif-black"
+                            android:hint="Другие..."
+                            android:padding="10dp"
+                            android:textSize="15sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:text="Если недель несколько - напишите через запятую"
+                android:fontFamily="sans-serif"
+                android:textSize="10dp"
+                android:layout_marginTop="-10dp"/>
+
+            <EditText
+                android:id="@+id/teacherField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:hint="@string/Преподаватель"
+                android:fontFamily="sans-serif-black"
+                android:textSize="20sp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"/>
+            <EditText
+                android:id="@+id/notesField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:hint="Заметки"
+                android:fontFamily="sans-serif-black"
+                android:textSize="20sp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <Button
+                android:id="@+id/saveLessonButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Готово"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:clipToPadding="true"
+                android:background="@drawable/radius"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:elevation="20dp"
+                android:padding="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/deleteLessonButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Удалить занятие"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:clipToPadding="true"
+                android:background="@drawable/radius"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:elevation="20dp"
+                android:padding="10dp"
+                android:textColor="@color/lighterNNTUred"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="20dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
