@@ -8,8 +8,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -18,16 +22,17 @@ import com.alexxingplus.nntuandroid.R
 import com.alexxingplus.nntuandroid.ui.getDefaults
 import com.alexxingplus.nntuandroid.ui.setDefaults
 import com.jsibbold.zoomage.ZoomageView
-import kotlin.concurrent.thread
+
+
 
 
 class HomeFragment : Fragment() {
 
+
     private var floor : Int = 1
-    private var buiding : Int = 6
+    private var building : Int = 6
     private var minFloor : Int = 0
     private var maxFloor : Int = 5
-    private var FloorOrBuiding : Boolean = true //true - этаж, false - корпус
 
     fun getImage (c: Context, imgname: String) : Drawable {
         return c.resources.getDrawable(c.resources.getIdentifier(imgname, "mipmap", c.packageName), c.theme)
@@ -65,24 +70,26 @@ class HomeFragment : Fragment() {
         //vals from xml
         val editableTextView : TextView = root.findViewById(R.id.editText)
         val searchButton : Button = root.findViewById(R.id.searchButton)
-        val buidingFloor : Button = root.findViewById(R.id.buidingFloor)
-        val prevButton : ImageButton = root.findViewById(R.id.prevButton)
-        var nextButton : ImageButton = root.findViewById(R.id.nextButton)
-        val floorText : TextView = root.findViewById(R.id.textView)
+        val prevFloorButton : ImageButton = root.findViewById(R.id.prevButton)
+        var nextFloorButton : ImageButton = root.findViewById(R.id.nextButton)
+        val floorText : TextView = root.findViewById(R.id.floorText)
         val theImage : ZoomageView = root.findViewById(R.id.theImage)
         val moreRooms : Button = root.findViewById(R.id.moreRoomsButton)
+        val rotateButton : ImageButton = root.findViewById(R.id.rotateButton)
+
+        val buildingText : TextView = root.findViewById(R.id.buildingText)
+        val prevBuildingButton : ImageButton = root.findViewById(R.id.prevBuildingButton)
+        val nextBuildingButton : ImageButton = root.findViewById(R.id.nextBuildingButton)
+
 
         //funs for vals
         fun updateNumber(){
-            if (FloorOrBuiding == true) {
-                floorText.text = floor.toString()
-            } else {
-                floorText.text = buiding.toString()
-            }
+            floorText.text = floor.toString()
+            buildingText.text = building.toString()
         }
 
         fun updateBuildingFloors () {
-            when (this.buiding){
+            when (this.building){
                 1 -> {
                     maxFloor = 3
                     minFloor = 1
@@ -114,50 +121,47 @@ class HomeFragment : Fragment() {
             }
         }
 
+
         fun checkButtons(){
-            nextButton.isClickable = true
-            prevButton.isClickable = true
-            nextButton.alpha = 1F
-            prevButton.alpha = 1F
-            if (FloorOrBuiding == true){
-                if (floor == maxFloor){
-                    nextButton.isClickable = false
-                    nextButton.alpha = 0.4F
-                }
-                if (floor == minFloor){
-                    prevButton.isClickable = false
-                    prevButton.alpha = 0.4F
-                }
-                if (floor < minFloor){
-                    floor = minFloor
-                    checkButtons()
-                } else if (floor > maxFloor){
-                    floor = maxFloor
-                    checkButtons()
-                }
-            } else {
-                updateBuildingFloors()
-                if (buiding == 6){
-                    nextButton.isClickable = false
-                    nextButton.alpha = 0.4F
-                }
-                if (buiding == 1){
-                    prevButton.isClickable = false
-                    prevButton.alpha = 0.4F
-                }
-                if (buiding < 1){
-                    buiding = 0
-                    checkButtons()
-                } else if (buiding > 6){
-                    buiding = 6
-                    checkButtons()
-                }
+            updateBuildingFloors()
+
+            nextFloorButton.isClickable = true
+            prevFloorButton.isClickable = true
+            nextBuildingButton.isClickable = true
+            prevBuildingButton.isClickable = true
+
+            nextFloorButton.alpha = 1F
+            prevFloorButton.alpha = 1F
+            nextBuildingButton.alpha = 1F
+            prevBuildingButton.alpha = 1F
+
+
+            if (floor >= maxFloor){
+                floor = maxFloor
+                nextFloorButton.isClickable = false
+                nextFloorButton.alpha = 0.4F
+            }
+            if (floor <= minFloor){
+                floor = minFloor
+                prevFloorButton.isClickable = false
+                prevFloorButton.alpha = 0.4F
+            }
+
+            if (building >= 6){
+                building = 6
+                nextBuildingButton.isClickable = false
+                nextBuildingButton.alpha = 0.4F
+            }
+            if (building <= 1){
+                building = 1
+                prevBuildingButton.isClickable = false
+                prevBuildingButton.alpha = 0.4F
             }
         }
 
         fun showEmptyFloors() {
             try {
-                val name : String = "b" + floor.toString() + "level_non_active_" + buiding.toString()
+                val name : String = "b" + floor.toString() + "level_non_active_" + building.toString()
                 val newImage : Drawable = getImage(requireContext(), name)
                 theImage.setImageDrawable(newImage)
             } catch (e : Exception) {
@@ -193,15 +197,15 @@ class HomeFragment : Fragment() {
                 }
             }
 
-            if (buiding == inputBuiding && inputFloor != -1){
-                if (buiding == 1){
+            if (building == inputBuiding && inputFloor != -1){
+                if (building == 1){
                     if (inputFloor == floor){
                         showTheImage(input)
                     } else if (floor < inputFloor){
                         showTheImage(floor.toString() + "level_up_1")
                     } else {showEmptyFloors()}
                 }
-                else if (buiding == 2){
+                else if (building == 2){
                     if (inputFloor == floor){
                         showTheImage(input)
                     } else if (inputFloor == 1 && floor == 1){
@@ -210,14 +214,14 @@ class HomeFragment : Fragment() {
                         showTheImage(floor.toString() + "level_up_2")
                     } else {showEmptyFloors()}
                 }
-                else if (buiding == 3){
+                else if (building == 3){
                     if (inputFloor == floor){
                         showTheImage(input)
                     } else if (floor < inputFloor){
                         showTheImage(floor.toString() + "level_up_3")
                     } else {showEmptyFloors()}
                 }
-                else if (buiding == 4){
+                else if (building == 4){
                     if (inputFloor == floor){
                         showTheImage(input)
                     } else if ((floor < inputFloor) && ((input.toInt() > 4400 && input.toInt() < 4410) || (input.toInt() > 4303 && input.toInt() < 4313))){
@@ -226,7 +230,7 @@ class HomeFragment : Fragment() {
                         showTheImage(floor.toString() + "level_up_4")
                     } else {showEmptyFloors()}
                 }
-                else if (buiding == 5){
+                else if (building == 5){
                     if (inputFloor == floor){
                         showTheImage(input)
                     } else if ((floor < inputFloor) && ((inputFloor == 2 && floor == 1) || (input.toInt() == 5301 || input.toInt() == 5302 || input.toInt() == 5401 || input.toInt() == 5402))){
@@ -235,7 +239,7 @@ class HomeFragment : Fragment() {
                         showTheImage(floor.toString() + "level_up_5")
                     } else {showEmptyFloors()}
                 }
-                else if (buiding == 6){
+                else if (building == 6){
                     if (inputFloor == floor){
                         showTheImage(input)
                     }
@@ -269,42 +273,37 @@ class HomeFragment : Fragment() {
         }
 
         //the code
+        checkButtons()
         updateNumber()
         editableTextView.hint = getString(R.string.Введите_аудиторию__)
 
 
-        prevButton.setOnClickListener{
-            if (FloorOrBuiding == true){
-                floor -= 1
-            } else {
-                buiding -= 1
-            }
-            updateNumber()
-            checkButtons()
-            updateImage()
-        }
-
-        nextButton.setOnClickListener {
-            if (FloorOrBuiding == true){
-                floor += 1
-            } else {
-                buiding += 1
-            }
+        prevFloorButton.setOnClickListener{
+            floor -= 1
             checkButtons()
             updateNumber()
             updateImage()
         }
 
-        buidingFloor.setOnClickListener {
-            val input = editableTextView.text.toString()
-            FloorOrBuiding = !FloorOrBuiding
-            if (FloorOrBuiding == true){
-                buidingFloor.text = getString(R.string.Этаж)
-            } else {
-                buidingFloor.text = getString(R.string.Корпус)
-            }
-            updateNumber()
+        nextFloorButton.setOnClickListener {
+            floor += 1
             checkButtons()
+            updateNumber()
+            updateImage()
+        }
+
+        prevBuildingButton.setOnClickListener{
+            building -= 1
+            checkButtons()
+            updateNumber()
+            updateImage()
+        }
+
+        nextBuildingButton.setOnClickListener {
+            building += 1
+            checkButtons()
+            updateNumber()
+            updateImage()
         }
 
         searchButton.setOnClickListener {
@@ -318,7 +317,7 @@ class HomeFragment : Fragment() {
                     editableTextView.setText("")
                     editableTextView.hint = getString(R.string.Ошибка)
                 } else {
-                    buiding = input[0].toString().toInt()
+                    building = input[0].toString().toInt()
                     updateBuildingFloors()
                     if (input.length > 1) {
                         val inputFloor = input[1].toString().toInt()
@@ -341,7 +340,7 @@ class HomeFragment : Fragment() {
             searchButton.performClick()
             try {
                 if (input[0].toString().toInt() != 0){
-                    buiding = input[0].toString().toInt()
+                    building = input[0].toString().toInt()
                 }
                 updateBuildingFloors()
                 if (input.length > 1) {
@@ -362,12 +361,25 @@ class HomeFragment : Fragment() {
 
         moreRooms.setOnClickListener {
             val goToIntent = Intent(requireContext(), MoreRoomsActivity::class.java)
-            goToIntent.putExtra("nowBuilding", buiding)
+            goToIntent.putExtra("nowBuilding", building)
             this.requireContext().startActivity(goToIntent)
         }
 
         if (getDefaults("isUpdating", context) ?: 0 == 0){
             setDefaults("isUpdating", 1, context)
+        }
+
+
+        var imageRotation : Float = 0F
+
+        val fadeIn = AnimationUtils.loadAnimation(requireContext(), android.R.anim.fade_in)
+        val fadeOut = AnimationUtils.loadAnimation(requireContext(), android.R.anim.fade_out)
+        val rotate = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_center)
+
+        rotateButton.setOnClickListener {
+            theImage.startAnimation(rotate)
+            imageRotation += 90
+            theImage.rotation = imageRotation
         }
 
         return root

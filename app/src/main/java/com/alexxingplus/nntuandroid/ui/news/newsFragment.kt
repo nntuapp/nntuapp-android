@@ -1,4 +1,4 @@
-package com.alexxingplus.nntuandroid.ui.notifications
+package com.alexxingplus.nntuandroid.ui.news
 
 import android.content.Context
 import android.content.Intent
@@ -286,6 +286,7 @@ class NotificationsFragment : Fragment() {
         }
 
         override fun getCount () : Int {
+            if (news.size != 0) return news.size
             return 8
         }
 

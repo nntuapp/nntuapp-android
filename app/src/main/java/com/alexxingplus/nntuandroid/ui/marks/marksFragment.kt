@@ -1,4 +1,4 @@
-package com.alexxingplus.nntuandroid.ui.dashboard
+package com.alexxingplus.nntuandroid.ui.marks
 
 import android.content.Context
 import android.content.Intent
@@ -18,7 +18,6 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.alexxingplus.nntuandroid.R
 import com.alexxingplus.nntuandroid.ui.AverageMarkActivity
-import com.alexxingplus.nntuandroid.ui.OnSwipeTouchListener
 import com.alexxingplus.nntuandroid.ui.SingleMarkActivity
 import org.jsoup.Jsoup
 import kotlin.math.roundToInt
@@ -30,10 +29,28 @@ class Mark
     val skn : String?,
     val propSkn : String?,
     val type : String?,
-    val result : String?){}
+    val result : String?)
+{
+    fun hasResult(): Boolean {
+        return fkn != null || skn != null || result != null
+    }
+}
 
 class Sem (
-    var Marks: ArrayList<Mark> = ArrayList<Mark>()){}
+    var Marks: ArrayList<Mark> = ArrayList<Mark>(),
+    var number: Int = 0)
+{
+    fun hasMarks(): Boolean {
+        for (mark in Marks) {
+            if (mark.hasResult()) {return true}
+        }
+        return false
+    }
+
+    fun isEmpty(): Boolean{
+        return this.Marks.isEmpty()
+    }
+}
 
 fun String.intOrString(): Int{
     val v = toIntOrNull()
@@ -42,6 +59,7 @@ fun String.intOrString(): Int{
         else -> v
     }
 }
+
 
 
 fun makeADiploma(marks: ArrayList<Sem>): HashMap<String, Int>?{
@@ -116,6 +134,19 @@ fun averagePerSem(marks: ArrayList<Sem>): ArrayList<Double>{
     return output
 }
 
+fun checkMarksConsistency(data: ArrayList<Sem>) : Boolean {
+    var prevSemNumber = 0
+    var prevSemHasMarks = true
+    for (sem in data){
+        if (prevSemNumber + 1 != sem.number) return false
+        if (!prevSemHasMarks && sem.hasMarks()) return false
+
+        prevSemNumber = sem.number
+        prevSemHasMarks = sem.hasMarks()
+    }
+    return true
+}
+
 
 class DashboardFragment : Fragment() {
 
@@ -183,14 +214,25 @@ class DashboardFragment : Fragment() {
         val typeStartWord = """
             ="text-center">
         """.trimIndent()
-        val semestr = "семестр"
+        val semestr = " семестр"
 
 
         var sems = ArrayList<String>()
-        while (webContent.contains(semestr) == true){
-            var stopSymbol = webContent.upperBound(semestr) - 1
-            sems.add(webContent.prefix(stopSymbol))
-            webContent = webContent.suffix(stopSymbol)
+        var semNumbers = ArrayList<Int>()
+        while (webContent.contains(semestr)){
+//            var stopSymbol = webContent.upperBound(semestr) - 1
+//            sems.add(webContent.prefix(stopSymbol))
+//            webContent = webContent.suffix(stopSymbol)
+
+            var numberSymbol = webContent.lowerBound(semestr) - 1
+            while (webContent[numberSymbol].isDigit()) {
+                numberSymbol -= 1
+            }
+            numberSymbol += 1
+
+            semNumbers.add(webContent.substring(numberSymbol..webContent.lowerBound(semestr) - 1).toInt())
+            sems.add(webContent.prefix(webContent.upperBound(semestr)))
+            webContent = webContent.suffix(webContent.upperBound(semestr))
         }
         sems.add(webContent)
         sems.removeAt(0)
@@ -286,7 +328,10 @@ class DashboardFragment : Fragment() {
                 tempSem.Marks.add(Mark(disName = name.clean(), fkn = Fkn, propFkn = PFkn, skn = Skn, propSkn = PSkn, type = type, result = res))
                 }
             }
-            Sems.add(tempSem)
+            tempSem.number = semNumbers[i]
+            if (!tempSem.isEmpty()) {
+                Sems.add(tempSem)
+            }
             tempSem = Sem()
         }
 
@@ -297,16 +342,16 @@ class DashboardFragment : Fragment() {
 //            }
 //        }
 
-        for (i in 0..output.count()-1){
-//            Log.i("Название", output[i].disName.toString())
-//            Log.i("1кн", output[i].fkn.toString())
-//            Log.i("1кн пропущено", output[i].propFkn.toString())
-//            Log.i("2кн", output[i].skn.toString())
-//            Log.i("2кн пропущено", output[i].propSkn.toString())
-//            Log.i("Тип", output[i].type.toString())
-//            Log.i("Результат", output[i].result.toString())
-            Log.i(output[i].disName.toString(), output[i].type.toString())
-        }
+//        for (i in 0..output.count()-1){
+////            Log.i("Название", output[i].disName.toString())
+////            Log.i("1кн", output[i].fkn.toString())
+////            Log.i("1кн пропущено", output[i].propFkn.toString())
+////            Log.i("2кн", output[i].skn.toString())
+////            Log.i("2кн пропущено", output[i].propSkn.toString())
+////            Log.i("Тип", output[i].type.toString())
+////            Log.i("Результат", output[i].result.toString())
+//            Log.i(output[i].disName.toString(), output[i].type.toString())
+//        }
 
         return Sems
     }
@@ -376,7 +421,12 @@ class DashboardFragment : Fragment() {
                 changeButton(nextSemButton, false)
                 changeButton(prevSemButton, false)
             }
-            semLabel.text = (nowSem + 1).toString() + " семестр"
+            if (sems.size > 0){
+                semLabel.text = (sems[nowSem].number).toString() + " семестр"
+            } else {
+                semLabel.text = "1 семестр"
+            }
+
         }
 
         fun nextSem(){
@@ -398,7 +448,7 @@ class DashboardFragment : Fragment() {
                         !(subject.fkn != null || subject.skn != null || subject.result != null)
                     emptySemester = emptySubject && emptySemester
                 }
-                if (emptySemester == true) {
+                if (emptySemester) {
                     if (i != 0) {
                         if (sem.Marks.count() > 0) {
                             nowSem = i - 1
@@ -468,7 +518,6 @@ class DashboardFragment : Fragment() {
         pullToRefresh.isRefreshing = true
         updateMarkInfo()
 
-
         pullToRefresh.setOnRefreshListener {
             updateMarkInfo()
         }
@@ -481,34 +530,9 @@ class DashboardFragment : Fragment() {
             intent.putExtra("diploma", diploma)
             intent.putExtra("averageOverall", averageOverall)
             intent.putExtra("averageSems", averageSems)
+            intent.putExtra("consistent", checkMarksConsistency(sems))
             requireContext().startActivity(intent)
         }
-
-
-//        val viewForSwipes = root.findViewById<View>(R.id.markList)
-//        val swiper = object : OnSwipeTouchListener(requireActivity()){
-//            override fun onSwipeLeft() {
-//                super.onSwipeLeft()
-////                val adapter = markList.adapter as MyCustomAdapter
-////                if (adapter.marks.count() > 0){
-////                    adapter.increaseNowSem()
-////                    adapter.notifyDataSetChanged()
-////                }
-//                nextSem()
-//            }
-//
-//            override fun onSwipeRight() {
-//                super.onSwipeRight()
-////                val adapter = markList.adapter as MyCustomAdapter
-////                if (adapter.marks.count() > 0){
-////                    adapter.decreaseNowSem()
-////                    adapter.notifyDataSetChanged()
-////                }
-//                prevSem()
-//            }
-//        }
-//
-//        viewForSwipes.setOnTouchListener(swiper)
 
         return root
     }
@@ -526,42 +550,8 @@ private class MyCustomAdapter (context : Context, marks : ArrayList<Mark>): Base
         this.marks = marks
     }
 
-//    public fun updateSem(){
-//        if (nowSem == -1){
-//            if (marks.count() > 0){
-//                maxSem = marks.count() - 1
-//            }
-//            for (i in 0..marks.count() - 1){
-//                var emptySemester = true
-//                for (j in 0..marks[i].Marks.count() - 1){
-//                    val subject = marks[i].Marks[j]
-//                    val emptySubject = !(subject.fkn != null || subject.skn != null || subject.result != null)
-//                    emptySemester = emptySubject && emptySemester
-//                }
-//                if (emptySemester == true){
-//                    if (i != 0) {
-//                        if (marks[i - 1].Marks.count() != 0) {
-//                            nowSem = i - 1
-//                            break
-//                        }
-//                        emptySemester = false
-//                    }
-//                }
-//                if (i == marks.count() - 1 && emptySemester == false){
-//                    nowSem = i
-//                }
-//            }
-//        }
-//
-//        if (nowSem > maxSem) {nowSem = maxSem}
-//        else if (nowSem < minSem) {nowSem = minSem}
-//    }
 
     override fun getCount () : Int {
-//        if (marks.count() > 0 && nowSem >= 0){
-//            return marks[nowSem].Marks.count() + 1
-//        }
-//        return 1
         return marks.count()
     }
 
@@ -606,7 +596,6 @@ private class MyCustomAdapter (context : Context, marks : ArrayList<Mark>): Base
         }
 
         card.setOnClickListener{
-//                Log.i("Карточка работает", position.toString())
             val openMark : Intent = Intent(mContext, SingleMarkActivity::class.java)
             openMark.putExtra("disName", marks[position].disName)
             openMark.putExtra("fkn", marks[position].fkn)
@@ -619,192 +608,5 @@ private class MyCustomAdapter (context : Context, marks : ArrayList<Mark>): Base
         }
 
         return mark_cell
-//        val separatorResource = R.layout.separator_cell
-//        val mark_cell : View = layoutInflater.inflate(cellRecource, parent, false)
-//
-//        if (position == 0){
-//            val separator_cell : View = layoutInflater.inflate(separatorResource, parent, false)
-//            val semLabel : TextView = separator_cell.findViewById(R.id.separator_text)
-//            val prevButton : ImageButton = separator_cell.findViewById(R.id.prevSemButton)
-//            val nextButton : ImageButton = separator_cell.findViewById(R.id.nextSemButton)
-//            val statsButton: ImageButton = separator_cell.findViewById(R.id.statsButton)
-//
-//            if (nowSem >= 0){
-//                statsButton.isEnabled = true
-//                statsButton.isClickable = true
-//                nextButton.isEnabled = true
-//                nextButton.isClickable = true
-//                prevButton.isEnabled = true
-//                prevButton.isClickable = true
-//                statsButton.alpha = 1F
-//                nextButton.alpha = 1F
-//                prevButton.alpha = 1F
-//            } else {
-//                statsButton.isEnabled = false
-//                statsButton.isClickable = false
-//                nextButton.isEnabled = false
-//                nextButton.isClickable = false
-//                prevButton.isEnabled = false
-//                prevButton.isClickable = false
-//                statsButton.alpha = 0.5F
-//                nextButton.alpha = 0.5F
-//                prevButton.alpha = 0.5F
-//            }
-//
-//            if (nowSem >= maxSem && marks.size > 0){
-//                nextButton.isEnabled = false
-//                nextButton.isClickable = false
-//                nextButton.alpha = 0.5F
-//            } else {
-//                nextButton.isEnabled = true
-//                nextButton.isClickable = true
-//                nextButton.alpha = 1F
-//            }
-//            if (nowSem <= minSem && marks.size > 0){
-//                prevButton.isEnabled = false
-//                prevButton.isClickable = false
-//                prevButton.alpha = 0.5F
-//            } else {
-//                prevButton.isEnabled = true
-//                prevButton.isClickable = true
-//                prevButton.alpha = 1F
-//            }
-//            semLabel.text = (nowSem + 1).toString() + " семестр"
-//
-//            prevButton.setOnClickListener {
-////                nowSem -= 1
-////                if (nowSem > maxSem) {nowSem = maxSem}
-////                else if (nowSem < minSem) {nowSem = minSem}
-////                updateSem()
-//                decreaseNowSem()
-//                this.notifyDataSetChanged()
-//            }
-//
-//            nextButton.setOnClickListener {
-////                nowSem += 1
-////                if (nowSem > maxSem) {nowSem = maxSem}
-////                else if (nowSem < minSem) {nowSem = minSem}
-////                updateSem()
-//                increaseNowSem()
-//                this.notifyDataSetChanged()
-//            }
-//
-//            statsButton.setOnClickListener {
-//                val intent = Intent(mContext, AverageMarkActivity::class.java)
-//                val diploma = makeADiploma(marks)
-//                val averageOverall = getAverageOverall(diploma)
-//                val averageSems = averagePerSem(marks)
-//                intent.putExtra("diploma", diploma)
-//                intent.putExtra("averageOverall", averageOverall)
-//                intent.putExtra("averageSems", averageSems)
-//                mContext.startActivity(intent)
-//            }
-//
-//            return separator_cell
-//        } else {
-//            val disNameLabel : TextView = mark_cell.findViewById(R.id.disNameLabel)
-//            val typeNameLabel : TextView = mark_cell.findViewById(R.id.typeNameLabel)
-//            val resultLabel : TextView = mark_cell.findViewById(R.id.resultLabel)
-//            val card : CardView = mark_cell.findViewById(R.id.markCard)
-//
-//            disNameLabel.text = marks[nowSem].Marks[position - 1].disName
-//            typeNameLabel.text = marks[nowSem].Marks[position - 1].type
-//            resultLabel.text = "пусто"
-//            resultLabel.alpha = 0.3F
-//
-//            if (marks[nowSem].Marks[position - 1].fkn != null){
-//                resultLabel.text = "1кн: ${marks[nowSem].Marks[position - 1].fkn}"
-//                resultLabel.alpha = 1F
-//            }
-//            if (marks[nowSem].Marks[position - 1].skn != null){
-//                resultLabel.text = "2кн: ${marks[nowSem].Marks[position - 1].skn}"
-//                resultLabel.alpha = 1F
-//            }
-//            if (marks[nowSem].Marks[position - 1].result != null){
-//                resultLabel.text = marks[nowSem].Marks[position - 1].result
-//                resultLabel.alpha = 1F
-//            }
-//            if (marks[nowSem].Marks[position - 1].type == null){
-//                resultLabel.alpha = 0F
-//            } else if (resultLabel.text != "пусто"){
-//                resultLabel.alpha = 1F
-//            }
-//
-//
-//            card.setOnClickListener{
-////                Log.i("Карточка работает", position.toString())
-//                val openMark : Intent = Intent(mContext, SingleMarkActivity::class.java)
-//                openMark.putExtra("disName", marks[nowSem].Marks[position - 1].disName)
-//                openMark.putExtra("fkn", marks[nowSem].Marks[position - 1].fkn)
-//                openMark.putExtra("propFkn", marks[nowSem].Marks[position - 1].propFkn)
-//                openMark.putExtra("skn", marks[nowSem].Marks[position - 1].skn)
-//                openMark.putExtra("propSkn", marks[nowSem].Marks[position - 1].propSkn)
-//                openMark.putExtra("type", marks[nowSem].Marks[position - 1].type)
-//                openMark.putExtra("result", marks[nowSem].Marks[position - 1].result)
-//                this.mContext.startActivity(openMark)
-//            }
-//
-//
-//        }
-
-
-
-
-
-//        if (marks.count() > 0) {
-//            val disNameLabel : TextView = mark_cell.findViewById(R.id.disNameLabel)
-//            val typeNameLabel : TextView = mark_cell.findViewById(R.id.typeNameLabel)
-//            val resultLabel : TextView = mark_cell.findViewById(R.id.resultLabel)
-//            val card : CardView = mark_cell.findViewById(R.id.markCard)
-//
-//            disNameLabel.text = marks[position].disName
-//            typeNameLabel.text = marks[position].type
-//            resultLabel.text = "пусто"
-//            resultLabel.alpha = 0.3F
-//
-//            if (marks[position].fkn != null){
-//                resultLabel.text = "1кн: ${marks[position].fkn}"
-//                resultLabel.alpha = 1F
-//            }
-//            if (marks[position].skn != null){
-//                resultLabel.text = "2кн: ${marks[position].skn}"
-//            }
-//            if (marks[position].result != null){
-//                resultLabel.text = marks[position].result
-//                resultLabel.alpha = 1F
-//            }
-//            if (marks[position].disName.toString().contains(" семестр ") || marks[position].disName.toString() == oneMoreError || marks[position].disName.toString() == errorText){
-//                val separatorText = separator_cell.findViewById<TextView>(R.id.separator_text)
-//                separatorText.text = marks[position].disName
-//                separator_cell.isEnabled = false
-//                return separator_cell
-//            }
-//
-//            card.setOnClickListener{
-//                Log.i("Карточка работает", position.toString())
-//                val openMark : Intent = Intent(mContext, SingleMarkActivity::class.java)
-//                openMark.putExtra("disName", marks[position].disName)
-//                openMark.putExtra("fkn", marks[position].fkn)
-//                openMark.putExtra("propFkn", marks[position].propFkn)
-//                openMark.putExtra("skn", marks[position].skn)
-//                openMark.putExtra("propSkn", marks[position].propSkn)
-//                openMark.putExtra("type", marks[position].type)
-//                openMark.putExtra("result", marks[position].result)
-//                this.mContext.startActivity(openMark)
-//            }
-//        }
-
     }
-//
-//
-//
-//    public fun increaseNowSem(){
-//        nowSem += 1
-//        updateSem()
-//    }
-//
-//    public fun decreaseNowSem(){
-//        nowSem -= 1
-//        updateSem()
-//    }
 }

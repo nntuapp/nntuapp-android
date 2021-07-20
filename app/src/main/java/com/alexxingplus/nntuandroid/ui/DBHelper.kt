@@ -47,6 +47,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         for (lesson in tt){
             saveLesson(lesson)
         }
+        db.close()
     }
 
     fun loadTTfromSQLite(): ArrayList<Lesson>{
@@ -67,31 +68,33 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
             output.add(tempLesson)
             cursor.moveToNext()
         }
+        cursor.close()
+        this.readableDatabase.close()
         return output
     }
 
     fun clear(){
         try{
-            val db = this.readableDatabase
+            val db = this.writableDatabase
             db.delete("$TABLE_NAME", null, null)
             db.close()
         } catch (e: Exception){
             Log.d("clear SQL error", e.toString())
         }
-
+        editingTT.clear()
     }
 
     fun getAllRow(): Cursor? {
         val db = this.readableDatabase
-        try{
-            return db.rawQuery("SELECT * FROM $TABLE_NAME", null)
+        return try{
+            val result = db.rawQuery("SELECT * FROM $TABLE_NAME", null)
+            result
         } catch (e: Exception){
-            onCreate(this.writableDatabase)
-            return db.rawQuery("SELECT * FROM ${com.alexxingplus.nntuandroid.ui.DBHelper.Companion.TABLE_NAME}", null)
             Log.d("Ошибка в getAllRow", e.toString())
+            onCreate(this.writableDatabase)
+            val result = db.rawQuery("SELECT * FROM ${com.alexxingplus.nntuandroid.ui.DBHelper.Companion.TABLE_NAME}", null)
+            result
         }
-
-
     }
 
     companion object {

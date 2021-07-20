@@ -143,6 +143,7 @@ class timeTableFragment : Fragment() {
     var areAllActive: Boolean = false
     private var tt = ArrayList<Lesson>()
     private var adapterToUpdate: TTadapter? = null
+    var autoUpdate = false
 
     fun filterWeek(tt: ArrayList<Lesson>, week: Int) : ArrayList<Lesson>{
         var output = ArrayList<Lesson>()
@@ -205,6 +206,7 @@ class timeTableFragment : Fragment() {
             adapterToUpdate!!.areAllActive = getDefaults("areAllActive", requireContext()) ?: 0 == 1
             adapterToUpdate!!.notifyDataSetChanged()
 
+            autoUpdate = getDefaults("isUpdating", context) ?: 0 == 1
 
             val calSync = getDefaults("calSync", requireContext()) ?: 0 == 1
             if (calSync && tt.size >0){
@@ -228,6 +230,7 @@ class timeTableFragment : Fragment() {
         val calendarButton: ImageButton = root.findViewById(R.id.calendarButton)
         val goToSettingsButton: ImageButton = root.findViewById(R.id.newSettingsButtonFromTT)
 
+
         val userDefaults = activity?.getPreferences(Context.MODE_PRIVATE) ?: return root
         var i = 0
         val entered = userDefaults.getBoolean("entered", false)
@@ -238,7 +241,7 @@ class timeTableFragment : Fragment() {
 
         var nowWeek = getNowWeek()
 
-        val autoUpdate = getDefaults("isUpdating", context) ?: 0 == 1
+
         areAllActive = getDefaults("areAllActive", context) ?: 0 == 1
 
         val adapter = TTadapter(requireContext(), tt, nowWeek, areAllActive)
@@ -279,6 +282,8 @@ class timeTableFragment : Fragment() {
 
         fun updateTT(){
             thread {
+                autoUpdate = getDefaults("isUpdating", context) ?: 0 == 1
+//                Log.d("autoUpdate", autoUpdate.toString())
                 val calSync = getDefaults("calSync", context) ?: 0 == 1
                 val db = DBHelper(requireContext(), null)
                 tt = db.loadTTfromSQLite()
@@ -290,18 +295,32 @@ class timeTableFragment : Fragment() {
                             if (calSync){
                                 addTTtoCalendar(requireActivity(), tt)
                             }
+                            this.activity?.runOnUiThread{
+                                adapter.tt = getTTForView(tt, nowWeek)
+                                adapter.notifyDataSetChanged()
+                                pullToRefresh.isRefreshing = false
+                            }
                         } else {
                             Toast.makeText(context, "Расписание не было загружено", Toast.LENGTH_SHORT).show()
+                            this.activity?.runOnUiThread{
+                                adapter.tt = getTTForView(tt, nowWeek)
+                                adapter.notifyDataSetChanged()
+                                pullToRefresh.isRefreshing = false
+                            }
                         }
                     })
-                } else if (calSync){
+                } else {
+                    this.activity?.runOnUiThread{
+                        adapter.tt = getTTForView(tt, nowWeek)
+                        adapter.notifyDataSetChanged()
+                        pullToRefresh.isRefreshing = false
+                    }
+                }
+
+                if (calSync){
                     addTTtoCalendar(requireActivity(), tt)
                 }
-                this.activity?.runOnUiThread{
-                    adapter.tt = getTTForView(tt, nowWeek)
-                    adapter.notifyDataSetChanged()
-                    pullToRefresh.isRefreshing = false
-                }
+
             }
         }
 

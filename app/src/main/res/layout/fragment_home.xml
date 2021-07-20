@@ -7,7 +7,8 @@
     tools:context=".ui.home.HomeFragment"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:background="?android:attr/colorBackground">
+    android:background="?android:attr/colorBackground"
+    android:animateLayoutChanges="true">
 
 
     <LinearLayout
@@ -48,118 +49,232 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_height="40dp"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:background="@drawable/radius"
-        android:elevation="3dp"
+    <ScrollView
+        android:id="@+id/controls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/FieldStack"
-        app:layout_constraintTop_toBottomOf="@+id/FieldStack">
-
-        <Button
-            android:id="@+id/buidingFloor"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/Этаж" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:background="@drawable/radius"
-        android:elevation="3dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout"
-        android:clipToPadding="false"
-        android:clipChildren="false">
-
-        <ImageButton
-            android:id="@+id/prevButton"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:foregroundGravity="center"
-            android:src="@drawable/left_arrow"
-            android:tint="?attr/colorAccent" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:fontFamily="sans-serif-medium"
-            android:text="1"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="?attr/color"
-            android:textSize="27sp"
-            android:typeface="normal" />
-
-        <ImageButton
-            android:id="@+id/nextButton"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:foregroundGravity="center"
-            android:src="@drawable/right_arrow"
-            android:tint="?attr/colorAccent"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:background="@drawable/radius"
-        android:elevation="3dp"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout2"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/FieldStack"
         android:clipChildren="false"
-        android:clipToPadding="false">
+        android:clipToPadding="false"
+        app:layout_constraintVertical_bias="10"
+        android:elevation="7dp">
 
-        <Button
-            android:id="@+id/moreRoomsButton"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:text="@string/Ещё"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:paddingStart="15dp"
+            android:clipChildren="false"
+            android:clipToPadding="false">
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="@drawable/radius"
+                android:elevation="3dp"
+                android:orientation="vertical"
+                android:clipToPadding="false"
+                android:clipChildren="false">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:clipToPadding="false"
+                    android:clipChildren="false">
+
+                    <ImageButton
+                        android:id="@+id/prevBuildingButton"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:foregroundGravity="center"
+                        android:src="@drawable/left_arrow"
+                        android:tint="?attr/colorAccent" />
+
+                    <TextView
+                        android:id="@+id/buildingText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="1"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="?attr/color"
+                        android:textSize="27sp"
+                        android:typeface="normal" />
+
+                    <ImageButton
+                        android:id="@+id/nextBuildingButton"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:foregroundGravity="center"
+                        android:src="@drawable/right_arrow"
+                        android:tint="?attr/colorAccent"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/Корпус"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="?attr/color"
+                    android:textSize="10sp"
+                    android:typeface="normal"
+                    android:layout_marginTop="-7dp"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/radius"
+                android:elevation="3dp"
+                android:orientation="vertical"
+                android:clipToPadding="false"
+                android:clipChildren="false">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:clipToPadding="false"
+                    android:clipChildren="false">
+
+                    <ImageButton
+                        android:id="@+id/prevButton"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:foregroundGravity="center"
+                        android:src="@drawable/left_arrow"
+                        android:tint="?attr/colorAccent" />
+
+                    <TextView
+                        android:id="@+id/floorText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="1"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="?attr/color"
+                        android:textSize="27sp"
+                        android:typeface="normal" />
+
+                    <ImageButton
+                        android:id="@+id/nextButton"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:foregroundGravity="center"
+                        android:src="@drawable/right_arrow"
+                        android:tint="?attr/colorAccent"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/Этаж"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="?attr/color"
+                    android:textSize="10sp"
+                    android:typeface="normal"
+                    android:layout_marginTop="-7dp"/>
+
+
+            </LinearLayout>
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="@drawable/radius"
+                android:elevation="3dp"
+                android:layout_marginStart="10dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <Button
+                    android:id="@+id/moreRoomsButton"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:text="@string/Ещё"/>
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/rotateButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:elevation="3dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/radius"
+                android:src="@drawable/ic_rotate_right_black_24dp"
+                android:tint="@color/NNTUblue"/>
+
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+
 
     <com.jsibbold.zoomage.ZoomageView
         android:id="@+id/theImage"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:scaleType="fitStart"
+        android:layout_marginBottom="60dp"
+        android:scaleType="fitCenter"
         android:src="@mipmap/b1level_non_active_6"
         app:zoomage_minScale="0.9"
         app:zoomage_maxScale="5"
         app:zoomage_zoomable="true"
         app:zoomage_doubleTapToZoom="true"
         app:zoomage_animateOnReset="false"
-        app:zoomage_restrictBounds="false"
-        android:layout_marginBottom="60dp"
+        app:zoomage_restrictBounds="true"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.0"/>
+        app:layout_constraintTop_toBottomOf="@+id/controls"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 

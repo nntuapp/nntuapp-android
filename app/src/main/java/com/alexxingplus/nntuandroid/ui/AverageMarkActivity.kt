@@ -1,27 +1,46 @@
 package com.alexxingplus.nntuandroid.ui
 
 import android.content.Context
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import com.alexxingplus.nntuandroid.R
 
 class AverageMarkActivity : AppCompatActivity() {
+
+    fun consistencyAlert(){
+        var dialog = AlertDialog.Builder(this, R.style.Theme_AppCompat_Light_Dialog_Alert).create()
+        dialog.setTitle("Семестры пропущены!")
+        dialog.setMessage("Данных о некоторых семестрах в приложении нет, поэтому средний балл по некоторым дисциплинам может вычисляться неточно, или вообще отсутсвовать.")
+        dialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", DialogInterface.OnClickListener { dialogInterface, _ ->
+            dialogInterface.dismiss()
+        })
+        dialog.show()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_average_mark)
 
         var diploma = HashMap<String, Int>()
         var averageSems = ArrayList<Double>()
+        var consistent = false
 
         try {
             diploma = intent.getSerializableExtra("diploma") as HashMap<String, Int>
             averageSems = intent.getSerializableExtra("averageSems") as ArrayList<Double>
+            consistent = intent.getBooleanExtra("consistent", false)
         } catch (e: Exception){
             Toast.makeText(this, "Не удалось вычислить средний балл. Свяжитесь с разработчиком", Toast.LENGTH_LONG).show()
+        }
+
+        if (!consistent){
+            consistencyAlert()
         }
 
         val list: ListView = findViewById(R.id.averageMarksList)
