@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="?android:attr/colorBackground"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:clipChildren="false">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="100dp"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+            <LinearLayout
+                android:id="@+id/accountStack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:background="@drawable/more_account_radius"
+                android:elevation="25dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <LinearLayout
+                    android:id="@+id/inputStack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/warningLabel"
+                        android:fontFamily="sans-serif"
+                        android:textSize="17dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/lighterNNTUred"
+                        android:text="@string/Не_все_поля_заполнены"/>
+
+                    <EditText
+                        android:id="@+id/secondNameField"
+                        android:fontFamily="sans-serif-black"
+                        android:textSize="23dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radius"
+                        android:hint="@string/Фамилия"
+                        android:paddingVertical="10dp"
+                        android:maxLines="1"
+                        android:inputType="textCapWords"/>
+                    <EditText
+                        android:id="@+id/nameField"
+                        android:fontFamily="sans-serif-black"
+                        android:textSize="23dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radius"
+                        android:hint="@string/Имя"
+                        android:paddingVertical="10dp"
+                        android:maxLines="1"
+                        android:inputType="textCapWords"/>
+                    <EditText
+                        android:id="@+id/OtchField"
+                        android:fontFamily="sans-serif-black"
+                        android:textSize="23dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radius"
+                        android:hint="@string/Отчество"
+                        android:paddingVertical="10dp"
+                        android:maxLines="1"
+                        android:inputType="textCapWords"/>
+                    <EditText
+                        android:id="@+id/nstudField"
+                        android:fontFamily="sans-serif-black"
+                        android:textSize="23dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radius"
+                        android:hint="@string/Номер_билета"
+                        android:paddingVertical="10dp"
+                        android:maxLines="1"
+                        android:inputType="number"/>
+                    <EditText
+                        android:id="@+id/groupField"
+                        android:fontFamily="sans-serif-black"
+                        android:textSize="23dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radius"
+                        android:hint="@string/Группа"
+                        android:paddingVertical="10dp"
+                        android:maxLines="1"
+                        android:inputType="textCapCharacters"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/outputStack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/outputSecondName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-black"
+                        android:textSize="23dp"
+                        android:textColor="?attr/color"
+                        android:text="Шерстнев"
+                        android:paddingBottom="3dp"/>
+                    <TextView
+                        android:id="@+id/outputName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-black"
+                        android:textSize="23dp"
+                        android:textColor="?attr/color"
+                        android:text="Алексей"
+                        android:paddingBottom="3dp"/>
+
+                    <TextView
+                        android:id="@+id/outputOtchestvo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-black"
+                        android:textSize="23dp"
+                        android:textColor="?attr/color"
+                        android:text="Сергеевич"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginEnd="10dp">
+                            <TextView
+                                android:id="@+id/uselessGroupLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:textSize="14dp"
+                                android:textColor="?attr/color"
+                                android:text="@string/Группа"/>
+                            <TextView
+                                android:id="@+id/outputGroup"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-black"
+                                android:textSize="18dp"
+                                android:textColor="?attr/color"
+                                android:text="18САИ1" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/nstudLinearLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginEnd="10dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:textSize="14dp"
+                                android:textColor="?attr/color"
+                                android:text="@string/Номер_билета"/>
+                            <TextView
+                                android:id="@+id/outputNstud"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-black"
+                                android:textSize="18dp"
+                                android:textColor="?attr/color"
+                                android:text="183294" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:layout_marginTop="10dp">
+                    <Button
+                        android:id="@+id/outtButton"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radius"
+                        android:layout_marginEnd="10dp"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:elevation="5dp"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:padding="10dp"
+                        android:text="❌  Выйти"
+                        android:textColor="@color/lighterNNTUred"/>
+
+                    <Button
+                        android:id="@+id/editButton"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radius"
+                        android:layout_marginEnd="10dp"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:elevation="5dp"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:padding="10dp"
+                        android:text="✍️  Изменить"
+                        android:textColor="@color/NNTUblue"/>
+
+                    <Button
+                        android:id="@+id/enterButton"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radius"
+                        android:layout_marginEnd="10dp"
+                        android:clickable="true"
+                        android:clipToPadding="true"
+                        android:elevation="5dp"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:padding="10dp"
+                        android:text="✅  Войти"
+                        android:textColor="@color/NNTUblue"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/more_menu_radius"
+                android:elevation="20dp">
+
+                <TextView
+                    android:id="@+id/goToSettings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:textSize="17dp"
+                    android:textColor="?attr/color"
+                    android:text="⚙️  Настройки"
+                    android:padding="15dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"
+                    android:layout_marginStart="20dp"/>
+
+                <TextView
+                    android:id="@+id/findATeacher"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:textSize="17dp"
+                    android:textColor="?attr/color"
+                    android:text="🔎️  Поиск преподавателя"
+                    android:padding="15dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

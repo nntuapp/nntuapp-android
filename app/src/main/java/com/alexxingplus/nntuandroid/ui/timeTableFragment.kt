@@ -12,8 +12,10 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.HtmlCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.alexxingplus.nntuandroid.MainActivity
 
 import com.alexxingplus.nntuandroid.R
+import com.alexxingplus.nntuandroid.ui.news.updateLastID
 import java.util.*
 import java.util.jar.Manifest
 import kotlin.collections.ArrayList
@@ -64,7 +66,11 @@ fun arrayToTimeTable (arraylist: ArrayList<DisTime>): TimeTable {
     return output
 }
 
-
+fun getActualWeek () : Int {
+    val date = GregorianCalendar.getInstance(Locale.GERMANY)
+    var actualWeek = date.get(Calendar.WEEK_OF_YEAR) - startWeek + additionalWeek
+    return actualWeek
+}
 
 
 val months = arrayOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
@@ -187,7 +193,7 @@ class timeTableFragment : Fragment() {
 
     fun getNowWeek(): Int{
         val date = Calendar.getInstance(Locale.GERMANY)
-        return date.get(Calendar.WEEK_OF_YEAR) - 5
+        return date.get(Calendar.WEEK_OF_YEAR) - startWeek + additionalWeek
     }
 
     fun getNowDayWeek(): Int {
@@ -208,10 +214,7 @@ class timeTableFragment : Fragment() {
 
             autoUpdate = getDefaults("isUpdating", context) ?: 0 == 1
 
-            val calSync = getDefaults("calSync", requireContext()) ?: 0 == 1
-            if (calSync && tt.size >0){
-                addTTtoCalendar(requireActivity(), tt)
-            }
+
         }
     }
 
@@ -222,6 +225,9 @@ class timeTableFragment : Fragment() {
         val days : Array<String> = arrayOf(getString(R.string.Понедельник), getString(R.string.Вторник), getString(R.string.Среда), getString(R.string.Четверг), getString(R.string.Пятница), getString(R.string.Суббота))
         // Inflate the layout for this fragment
         val root =  inflater.inflate(R.layout.fragment_time_table, container, false)
+
+        updateLastID(activity as MainActivity?, requireContext())
+
         val pullToRefresh = root.findViewById<SwipeRefreshLayout>(R.id.pullToRefreshTimeTable)
         val list : ListView = root.findViewById(R.id.timeTableList)
         val prevWeek: ImageButton = root.findViewById(R.id.prevWeekButton)
@@ -261,12 +267,14 @@ class timeTableFragment : Fragment() {
                 prevWeek.isClickable = true
                 prevWeek.alpha = 1F
             }
-            var tempWeekLabel = ""
-            tempWeekLabel = if (nowWeek % 2 == 0){
-                "<font color = #0072bc>$nowWeek неделя</font>"
-            } else {
-                "<font color = #9e280e>$nowWeek неделя</font>"
-            }
+
+            val boldStart = if (getActualWeek() == nowWeek) "<b>" else ""
+            val boldEnd = if (getActualWeek() == nowWeek) "</b>" else ""
+
+            val colorTag = if (nowWeek % 2 == 0) "<font color = #0072bc>" else "<font color = #9e280e>"
+
+            val tempWeekLabel = "$colorTag$boldStart$nowWeek неделя $boldEnd</font>"
+            
             weekLabel.setText(HtmlCompat.fromHtml(tempWeekLabel, HtmlCompat.FROM_HTML_MODE_LEGACY))
             adapter.tt = getTTForView(tt, nowWeek)
             adapter.week = nowWeek
@@ -288,39 +296,40 @@ class timeTableFragment : Fragment() {
                 val db = DBHelper(requireContext(), null)
                 tt = db.loadTTfromSQLite()
                 if (autoUpdate){
-                    downloadTT(group, requireContext(), fun(lessons){
-                        if (lessons.size != 0){
-                            tt = lessons
-                            db.saveTT(lessons)
-                            if (calSync){
-                                addTTtoCalendar(requireActivity(), tt)
+                    thread {
+                        downloadTT(group, requireContext(), fun(lessons){
+                            if (lessons.size != 0){
+                                tt = lessons
+                                db.saveTT(lessons)
+                                if (calSync && isAdded){
+                                    addTTtoCalendar(requireActivity(), tt)
+                                }
+                                this.activity?.runOnUiThread{
+                                    adapter.tt = getTTForView(tt, nowWeek)
+                                    adapter.notifyDataSetChanged()
+                                    pullToRefresh.isRefreshing = false
+                                }
+                            } else {
+                                this.activity?.runOnUiThread{
+                                    Toast.makeText(requireContext(), "Расписание не было загружено", Toast.LENGTH_SHORT).show()
+
+                                    adapter.tt = getTTForView(tt, nowWeek)
+                                    adapter.notifyDataSetChanged()
+                                    pullToRefresh.isRefreshing = false
+                                }
                             }
-                            this.activity?.runOnUiThread{
-                                adapter.tt = getTTForView(tt, nowWeek)
-                                adapter.notifyDataSetChanged()
-                                pullToRefresh.isRefreshing = false
-                            }
-                        } else {
-                            Toast.makeText(context, "Расписание не было загружено", Toast.LENGTH_SHORT).show()
-                            this.activity?.runOnUiThread{
-                                adapter.tt = getTTForView(tt, nowWeek)
-                                adapter.notifyDataSetChanged()
-                                pullToRefresh.isRefreshing = false
-                            }
-                        }
-                    })
+                        })
+                    }
                 } else {
                     this.activity?.runOnUiThread{
                         adapter.tt = getTTForView(tt, nowWeek)
                         adapter.notifyDataSetChanged()
                         pullToRefresh.isRefreshing = false
                     }
+                    if (calSync && isAdded){
+                        addTTtoCalendar(requireActivity(), tt)
+                    }
                 }
-
-                if (calSync){
-                    addTTtoCalendar(requireActivity(), tt)
-                }
-
             }
         }
 
@@ -379,7 +388,7 @@ class timeTableFragment : Fragment() {
                 val moment = Calendar.getInstance(Locale.GERMANY)
                 moment.set(year, monthOfYear, dayOfMonth)
 
-                nowWeek = moment.get(Calendar.WEEK_OF_YEAR) - 5
+                nowWeek = moment.get(Calendar.WEEK_OF_YEAR) - startWeek + additionalWeek
                 if (nowWeek < 0){
                     Toast.makeText(requireContext(), "Выбрана неделя до начала семестра, вы точно этого хотите?", Toast.LENGTH_LONG).show()
                 }
@@ -396,6 +405,12 @@ class timeTableFragment : Fragment() {
             intent.putExtra("group", userDefaults.getString("group", "").toString())
             requireContext().startActivity(intent)
         }
+
+//        val calSync = getDefaults("calSync", requireContext()) ?: 0 == 1
+//        if (calSync && tt.size >0){
+//            addTTtoCalendar(requireActivity(), tt)
+//        }
+
         return root
     }
 
@@ -423,11 +438,12 @@ class timeTableFragment : Fragment() {
         fun updateActualLesson(){
             val date = GregorianCalendar.getInstance(Locale.GERMANY)
             val nowTime = date.get(Calendar.HOUR_OF_DAY)*100 + date.get(Calendar.MINUTE)
-            var nowWeek = date.get(Calendar.WEEK_OF_YEAR) - 5
+            var nowWeek = date.get(Calendar.WEEK_OF_YEAR) - startWeek + additionalWeek
             var day = date.get(Calendar.DAY_OF_WEEK)
 
             if (day == 1) {
                 day == 7
+                nowWeek -= 1
                 nowWeek -= 1
             }
             else {day -= 1}

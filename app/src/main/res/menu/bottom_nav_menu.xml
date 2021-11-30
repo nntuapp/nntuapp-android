@@ -3,8 +3,8 @@
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/news_24px"
-        android:title="@string/title_news" />
+        android:icon="@drawable/ic_star_black_24dp"
+        android:title="@string/title_events" />
 
     <item
         android:id="@+id/navigation_dashboard"
@@ -23,8 +23,8 @@
 
     <item
         android:id="@+id/navigation_settings"
-        android:icon="@drawable/person_circle_24px"
-        android:title="@string/title_settings"/>
+        android:icon="@drawable/ic_pending_black_24dp"
+        android:title="@string/Ещё"/>
 
 
 

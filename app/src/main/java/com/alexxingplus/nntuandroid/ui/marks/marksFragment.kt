@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.alexxingplus.nntuandroid.MainActivity
 import com.android.volley.AuthFailureError
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
@@ -19,6 +20,7 @@ import com.android.volley.toolbox.Volley
 import com.alexxingplus.nntuandroid.R
 import com.alexxingplus.nntuandroid.ui.AverageMarkActivity
 import com.alexxingplus.nntuandroid.ui.SingleMarkActivity
+import com.alexxingplus.nntuandroid.ui.news.updateLastID
 import org.jsoup.Jsoup
 import kotlin.math.roundToInt
 
@@ -371,6 +373,8 @@ class DashboardFragment : Fragment() {
                 ViewModelProviders.of(this).get(DashboardViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
 
+        updateLastID(activity as MainActivity?, requireContext())
+
         val markList = root.findViewById<ListView>(R.id.markList)
         val pullToRefresh = root.findViewById<SwipeRefreshLayout>(R.id.pullToRefreshMarks)
 
@@ -476,7 +480,9 @@ class DashboardFragment : Fragment() {
                 this.activity?.runOnUiThread {
                     var adapter = markList.adapter as MyCustomAdapter
                     if (Entered){
-                        adapter.marks = sems[nowSem].Marks
+                        if (nowSem > sems.size && sems.size > 0) {nowSem = sems.size - 1}
+                        if (sems.size > 0) {adapter.marks = sems[nowSem].Marks}
+                        else {adapter.marks = ArrayList<Mark>()}
                         adapter.notifyDataSetChanged()
                         actualSem()
                         updateScreen()
@@ -487,7 +493,10 @@ class DashboardFragment : Fragment() {
                 pullToRefresh.isRefreshing = false
             }, Response.ErrorListener {error ->
                 Log.d("Оно не сработало", "$error")
-                Toast.makeText(context, "Проблемы с подключением к интернету", Toast.LENGTH_LONG).show()} )
+                if (context != null) {
+                    Toast.makeText(context, "Проблемы с подключением к интернету", Toast.LENGTH_LONG).show()}
+                })
+
             {
                 @Throws(AuthFailureError::class)
                 override fun getParams(): MutableMap<String, String> {

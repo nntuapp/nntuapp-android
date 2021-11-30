@@ -20,9 +20,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.news.singleEventActivity"
+            android:label="@string/title_event"/>
+        <activity
+            android:name=".ui.teachers.SingleTeacherActivity"
+            android:label="@string/Преподаватель" />
+        <activity
+            android:name=".ui.teachers.TeachersListActivity"
+            android:label="Поиск преподавателя" />
         <activity
             android:name=".ui.AverageMarkActivity"
-            android:label="Средний балл"/>
+            android:label="Средний балл" />
         <activity
             android:name=".ui.ShowALessonActivity"
             android:label="@string/title_timeTable" />

@@ -143,7 +143,7 @@ internal fun updateBigWidget(
 
     val day = Calendar.getInstance(Locale.GERMANY)
     var nowDay = day.get(Calendar.DAY_OF_WEEK)
-    var nowWeek = day.get(Calendar.WEEK_OF_YEAR) - 5
+    var nowWeek = day.get(Calendar.WEEK_OF_YEAR) - startWeek + additionalWeek
     val nowHour = day.get(Calendar.HOUR_OF_DAY)
     val nowMinute = day.get(Calendar.MINUTE)
 

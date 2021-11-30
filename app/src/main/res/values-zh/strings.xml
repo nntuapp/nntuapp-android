@@ -3,6 +3,8 @@
     <string name="title_navigation">导航</string>
     <string name="title_marks">评测</string>
     <string name="title_news">新闻</string>
+    <string name="title_events">活动</string>
+    <string name="title_event">事件</string>
     <string name="title_settings">帐户</string>
     <string name="title_article">文章</string>
     <string name="title_timeTable">时间表</string>

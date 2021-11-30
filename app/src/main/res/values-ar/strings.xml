@@ -3,6 +3,8 @@
     <string name="title_navigation">التنقل</string>
     <string name="title_marks">تقييم</string>
     <string name="title_news">أخبار</string>
+    <string name="title_events">الأحداث</string>
+    <string name="title_event">حدث</string>
     <string name="title_settings">الحساب</string>
     <string name="title_article">أخبار</string>
     <string name="title_timeTable">الجدول الزمني</string>

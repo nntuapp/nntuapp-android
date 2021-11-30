@@ -21,18 +21,6 @@ class MoreRoomsActivity : AppCompatActivity() {
         return tempBuilding
     }
 
-//    fun search(input: String, data: ArrayList<room>): ArrayList<room>{
-//        val output = ArrayList<room>()
-//        for (i in (0..data.count()-1)){
-//            if (data[i].name.toUpperCase().contains(input.toUpperCase())){
-//                output.add(data[i])
-//            } else if (data[i].number.toUpperCase().contains(input.toUpperCase())){
-//                output.add(data[i])
-//            }
-//        }
-//        return output
-//    }
-
     fun search(input: String) : HashMap<String, String> {
         var output = HashMap<String, String>()
         val searchWord = input.toUpperCase()
@@ -56,7 +44,7 @@ class MoreRoomsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val roomList : ListView = findViewById(R.id.roomsList)
-        val searchButton : ImageButton = findViewById(R.id.RoomSearchButton)
+        val roomSearchButton: ImageButton = findViewById(R.id.RoomSearchButton)
         val nextButton : ImageButton = findViewById(R.id.nextBuildButton)
         val prevButton : ImageButton = findViewById(R.id.prevBuildButton)
         val searchField : EditText = findViewById(R.id.searchRoomField)
@@ -124,7 +112,7 @@ class MoreRoomsActivity : AppCompatActivity() {
             }
         }
 
-        searchButton.setOnClickListener {
+        roomSearchButton.setOnClickListener {
             val adapter = roomList.adapter as RoomsAdapter
             if (searchField.text.toString() != ""){
                 adapter.mData = search(searchField.text.toString())

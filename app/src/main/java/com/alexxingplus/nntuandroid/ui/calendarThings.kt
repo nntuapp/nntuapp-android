@@ -11,6 +11,7 @@ import android.net.Uri
 import android.provider.CalendarContract
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
@@ -28,7 +29,9 @@ fun addTTtoCalendar(activity: Activity, tt: ArrayList<Lesson>){
         }
     } catch (e: Exception){
         Log.d("Календарь сломан", e.toString())
-        Toast.makeText(activity, "Не удаётся получить доступ к календарю, проверьте настройки устройства", Toast.LENGTH_LONG).show()
+        activity.runOnUiThread {
+            Toast.makeText(activity, "Не удаётся получить доступ к календарю, проверьте настройки устройства", Toast.LENGTH_LONG).show()
+        }
     }
 }
 
@@ -38,7 +41,9 @@ fun deleteACalendarWithPermission(activity: Activity){
     try{
         clearActualCalendar(context)
     } catch (e: Exception){
-        Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show()
+        activity.runOnUiThread {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show()
+        }
     }
 }
 
@@ -73,7 +78,7 @@ fun addLessonToCalendar(lesson: Lesson, context: Context, calendarID: Long){
         }
 
         val interval = if (isEveryWeek) 1 else 2
-        val rule = "FREQ=WEEKLY;INTERVAL=$interval;UNTIL=20210531"
+        val rule = "FREQ=WEEKLY;INTERVAL=$interval;UNTIL=$calendarExpDate"
 
         val contentResolver = context.contentResolver
 
@@ -100,11 +105,21 @@ fun getStartLong(lesson:Lesson, isEveryWeek: Boolean, week: Int): Long {
     else {tempDay += 1}
 
     var weekOfYear = 0
-    if (isEveryWeek || lesson.weeks.contains(-2)){
-        weekOfYear = 4 + 1
+
+    //18.08.21 – меняю 5 на startWeek, чтобы можно было менять недели везде из TTstructure
+//    if (isEveryWeek || lesson.weeks.contains(-2)){
+//        weekOfYear = startWeek // тут было 4 + 1
+//    } else if (lesson.weeks.contains(-1)){
+//        weekOfYear = startWeek + 1
+//    } else {weekOfYear = week + startWeek}// тут было 4 + 1 (что я хотел этим сказать??)
+
+    if (isEveryWeek){
+        weekOfYear = startWeek
+    } else if (lesson.weeks.contains(-2)){
+        weekOfYear = startWeek + additionalWeek
     } else if (lesson.weeks.contains(-1)){
-        weekOfYear = 5 + 1
-    } else {weekOfYear = week + 4 + 1}
+        weekOfYear = startWeek + 1 - additionalWeek
+    } else {weekOfYear = week + startWeek - additionalWeek}
 
     val startArray = hMfromString(lesson.startTime)
 
@@ -124,11 +139,13 @@ fun getStopLong(lesson:Lesson, isEveryWeek: Boolean, week: Int): Long {
     else {tempDay += 1}
 
     var weekOfYear = 0
-    if (isEveryWeek || lesson.weeks.contains(-2)){
-        weekOfYear = 4 + 1
+    if (isEveryWeek){
+        weekOfYear = startWeek
+    } else if (lesson.weeks.contains(-2)){
+        weekOfYear = startWeek + additionalWeek
     } else if (lesson.weeks.contains(-1)){
-        weekOfYear = 5 + 1
-    } else {weekOfYear = week + 4 + 1}
+        weekOfYear = startWeek + 1 - additionalWeek
+    } else {weekOfYear = week + startWeek - additionalWeek}
 
     val stopArray = hMfromString(lesson.stopTime)
 

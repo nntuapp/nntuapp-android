@@ -18,8 +18,11 @@ import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
+import com.alexxingplus.nntuandroid.MainActivity
 
 import com.alexxingplus.nntuandroid.R
+import com.alexxingplus.nntuandroid.ui.news.updateLastID
+import com.alexxingplus.nntuandroid.ui.teachers.TeachersListActivity
 import me.grantland.widget.AutofitTextView
 
 fun String.capitalize() : String{
@@ -59,7 +62,8 @@ class settings : Fragment() {
     ): View? {
         requireContext().setTheme(R.style.AppTheme)
 
-        val root = inflater.inflate(R.layout.account_fragment, container, false)
+        val root = inflater.inflate(R.layout.more_fragment, container, false)
+        updateLastID(activity as MainActivity?, requireContext())
 
         //userDefaults
         val userDefaults = activity?.getPreferences(Context.MODE_PRIVATE) ?: return root
@@ -75,52 +79,21 @@ class settings : Fragment() {
 
         //outputStack
         val outputStack : LinearLayout = root.findViewById(R.id.outputStack)
-        val outputName : AutofitTextView = root.findViewById(R.id.outputName)
-        val outputSecondName : AutofitTextView = root.findViewById(R.id.outputSecondName)
-        val outputOtchestvo : AutofitTextView = root.findViewById(R.id.outputOtchestvo)
-        val outputGroup : AutofitTextView = root.findViewById(R.id.outputGroup)
-        val outputNstud : AutofitTextView = root.findViewById(R.id.outputNstud)
-        val leaveButton : Button = root.findViewById(R.id.outButton)
+        val outputName : TextView = root.findViewById(R.id.outputName)
+        val outputSecondName : TextView = root.findViewById(R.id.outputSecondName)
+        val outputOtchestvo : TextView = root.findViewById(R.id.outputOtchestvo)
+        val outputGroup : TextView = root.findViewById(R.id.outputGroup)
+        val outputNstud : TextView = root.findViewById(R.id.outputNstud)
+        val leaveButton : Button = root.findViewById(R.id.outtButton)
         val uselessGroupLabel : TextView = root.findViewById(R.id.uselessGroupLabel)
         val nStudLinearLayout : LinearLayout = root.findViewById(R.id.nstudLinearLayout)
-        val editButton: ImageButton = root.findViewById(R.id.editButton)
+        val editButton: Button = root.findViewById(R.id.editButton)
 
         //more buttons
-        val addTimeTableButton : ImageButton = root.findViewById(R.id.settingsButtonFromAccount)
+        val goToSettings : TextView = root.findViewById(R.id.goToSettings)
+        val findTeacher: TextView = root.findViewById(R.id.findATeacher)
+
         val warningLabel : TextView = root.findViewById(R.id.warningLabel)
-//        val darkButton : ImageButton = root.findViewById(R.id.darkModeButton)
-
-//        val nightMode = AppCompatDelegate.getDefaultNightMode()
-
-//        if (nightMode == AppCompatDelegate.MODE_NIGHT_NO){
-//            val newImage : Drawable = getImage(requireContext(), "ic_sun")
-//            darkButton.setImageDrawable(newImage)
-//        } else if (nightMode == AppCompatDelegate.MODE_NIGHT_YES){
-//            val newImage : Drawable = getImage(requireContext(), "ic_moon")
-//            darkButton.setImageDrawable(newImage)
-//        } else {
-//            val newImage : Drawable = getImage(requireContext(), "ic_auto")
-//            darkButton.setImageDrawable(newImage)
-//        }
-
-//        darkButton.setOnClickListener {
-//            val nightMode = AppCompatDelegate.getDefaultNightMode()
-//            if (nightMode == AppCompatDelegate.MODE_NIGHT_NO){
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//                userDefaults.edit().putInt("mode", -1).apply()
-//            } else if (nightMode == AppCompatDelegate.MODE_NIGHT_YES){
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-//                userDefaults.edit().putInt("mode", 0).apply()
-//                val newImage : Drawable = getImage(requireContext(), "ic_auto")
-//                darkButton.setImageDrawable(newImage)
-//                Toast.makeText(requireContext(), getString(R.string.Темная_тема), Toast.LENGTH_LONG).show()
-//            } else {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//                val newImage : Drawable = getImage(requireContext(), "ic_sun")
-//                darkButton.setImageDrawable(newImage)
-//                userDefaults.edit().putInt("mode", 1).apply()
-//            }
-//        }
 
         fun updateScreen (isEntered: Boolean) {
             if (isEntered == true){
@@ -135,17 +108,15 @@ class settings : Fragment() {
                 inputStack.isVisible = false
                 enterButton.isVisible = false
 
+
                 //unhiding OutputStack
-                outputStack.alpha = 1F
+                outputStack.isVisible = true
                 leaveButton.isVisible = true
                 leaveButton.isClickable = true
 
                 //изменение от 13.02 - добавляем возможность редактирования
                 editButton.isVisible = true
                 editButton.isClickable = true
-
-                addTimeTableButton.isVisible = true
-                addTimeTableButton.isClickable = true
 
                 //filling outputStarck
                 val name = userDefaults.getString("name", null)
@@ -201,19 +172,16 @@ class settings : Fragment() {
                 inputStack.isVisible = true
                 enterButton.isVisible = true
 
+                warningLabel.isVisible = false
 
-                //unhiding OutputStack
-                outputStack.alpha = 0F
+                //hiding OutputStack
+                outputStack.isVisible = false
                 leaveButton.isVisible = false
                 leaveButton.isClickable = false
 
                 //изменение от 13.02 - добавляем возможность редактирования
                 editButton.isVisible = false
                 editButton.isClickable = false
-
-                addTimeTableButton.isVisible = false
-                addTimeTableButton.isClickable = false
-
             }
         }
 
@@ -222,7 +190,6 @@ class settings : Fragment() {
 
         enterButton.setOnClickListener{
             fun save(){
-                warningLabel.alpha = 0F
                 with (userDefaults.edit()){
                     putString("name", cleanString(nameField.text.toString()))
                     putString("secondName", cleanString(secondNameField.text.toString()))
@@ -253,7 +220,7 @@ class settings : Fragment() {
             bakButton.setOnClickListener {
                 if (checkForStudents){
                     if (!Entered){
-                        warningLabel.alpha = 1F
+                        warningLabel.isVisible = true
                     }
                 } else {
                     save()
@@ -265,7 +232,7 @@ class settings : Fragment() {
             magButton.setOnClickListener {
                 if (checkForStudents){
                     if (!Entered){
-                        warningLabel.alpha = 1F
+                        warningLabel.isVisible = true
                     }
                 } else {
                     save()
@@ -277,7 +244,7 @@ class settings : Fragment() {
             prepButton.setOnClickListener {
                 if (checkForPreps){
                     if (!Entered){
-                        warningLabel.alpha = 1F
+                        warningLabel.isVisible = true
                     }
                 } else {
                     save()
@@ -333,10 +300,15 @@ class settings : Fragment() {
             updateScreen(false)
         }
 
-        addTimeTableButton.setOnClickListener {
+        goToSettings.setOnClickListener {
             val intent = Intent(requireContext(), CodeActivity::class.java)
             intent.putExtra("entered", Entered)
             intent.putExtra("group", userDefaults.getString("group", "").toString())
+            requireContext().startActivity(intent)
+        }
+
+        findTeacher.setOnClickListener{
+            val intent = Intent(requireContext(), TeachersListActivity::class.java)
             requireContext().startActivity(intent)
         }
 

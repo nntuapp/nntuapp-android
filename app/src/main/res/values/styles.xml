@@ -4,6 +4,7 @@
         <item name="android:textColorPrimary">@android:color/black</item>
     </style>
 
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -15,8 +16,6 @@
         <item name="color">#000000</item>
         <item name="colorBackgroundFloating">#B3B3B3</item>
         <item name="android:colorBackground">#FFFFFF</item>
-
-
     </style>
 
     <style name="AppTheme.Red" parent="Theme.AppCompat.DayNight.DarkActionBar">
@@ -31,7 +30,7 @@
         <item name="android:colorBackground">#FFFFFF</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.NoActionBar" >
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

@@ -22,8 +22,11 @@ import com.alexxingplus.nntuandroid.R
 import com.alexxingplus.nntuandroid.ui.getDefaults
 import com.alexxingplus.nntuandroid.ui.setDefaults
 import com.jsibbold.zoomage.ZoomageView
-
-
+import com.alexxingplus.nntuandroid.MainActivity
+import com.alexxingplus.nntuandroid.ui.news.loadLastID
+import com.alexxingplus.nntuandroid.ui.news.setBadge
+import kotlin.concurrent.thread
+import com.alexxingplus.nntuandroid.ui.news.updateLastID
 
 
 class HomeFragment : Fragment() {
@@ -66,10 +69,12 @@ class HomeFragment : Fragment() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
+        updateLastID(activity as MainActivity?, requireContext())
+
 
         //vals from xml
         val editableTextView : TextView = root.findViewById(R.id.editText)
-        val searchButton : Button = root.findViewById(R.id.searchButton)
+        val searchButton : Button = root.findViewById(R.id.nntuapp_searchButton)
         val prevFloorButton : ImageButton = root.findViewById(R.id.prevButton)
         var nextFloorButton : ImageButton = root.findViewById(R.id.nextButton)
         val floorText : TextView = root.findViewById(R.id.floorText)
@@ -80,6 +85,7 @@ class HomeFragment : Fragment() {
         val buildingText : TextView = root.findViewById(R.id.buildingText)
         val prevBuildingButton : ImageButton = root.findViewById(R.id.prevBuildingButton)
         val nextBuildingButton : ImageButton = root.findViewById(R.id.nextBuildingButton)
+
 
 
         //funs for vals
@@ -188,21 +194,26 @@ class HomeFragment : Fragment() {
             //Узнаём этаж и строение из ввода
             val input = editableTextView.text.toString()
             var inputFloor : Int = -1
-            var inputBuiding : Int = 0
+            var inputBuilding : Int = 0
             if (input.length > 0) {
-                inputBuiding = input[0].toString().toInt()
+                inputBuilding = input[0].toString().toInt()
                 if (input.length > 1) {
                     inputFloor = input[1].toString().toInt()
                     if (input.toInt() >= 6103 && input.toInt() <= 6110){inputFloor = 0}
                 }
             }
 
-            if (building == inputBuiding && inputFloor != -1){
+            if (building == inputBuilding && inputFloor != -1){
                 if (building == 1){
-                    if (inputFloor == floor){
-                        showTheImage(input)
+                    val weirdBlock = arrayListOf(1280, 1281, 1361, 1362)
+                    if (floor < inputFloor && weirdBlock.contains(input.toInt())){
+                        showTheImage("${floor}level_up_weird_1")
                     } else if (floor < inputFloor){
                         showTheImage(floor.toString() + "level_up_1")
+                    } else if (input.toInt() == 1161 && floor == 2){
+                        showTheImage("2level_down_1")
+                    } else if (inputFloor == floor){
+                        showTheImage(input)
                     } else {showEmptyFloors()}
                 }
                 else if (building == 2){
@@ -277,7 +288,6 @@ class HomeFragment : Fragment() {
         updateNumber()
         editableTextView.hint = getString(R.string.Введите_аудиторию__)
 
-
         prevFloorButton.setOnClickListener{
             floor -= 1
             checkButtons()
@@ -334,6 +344,7 @@ class HomeFragment : Fragment() {
 
         }
 
+//        val input = if (isAdded) this.requireActivity().intent.getStringExtra("room") else null
         val input = this.requireActivity().intent.getStringExtra("room")
         if (input != null){
             editableTextView.setText(input)

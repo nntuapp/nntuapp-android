@@ -2,37 +2,68 @@ package com.alexxingplus.nntuandroid.ui.news
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
+import androidx.core.graphics.toColor
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.alexxingplus.nntuandroid.MainActivity
 import com.alexxingplus.nntuandroid.R
 import com.alexxingplus.nntuandroid.ui.ArticleActivity
 import com.squareup.picasso.Picasso
 import org.jsoup.Jsoup
 import java.net.URL
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
 
 
-class NotificationsFragment : Fragment() {
+public class article(
+    var preview: String?,
+    var zag: String?,
+    var href: String?,
+    var text: String?,
+    var hqimage: String?
+) {
+    fun toEvent(context: Context): Event{
+        val tV = TypedValue()
+        val theme = context.theme
+        theme.resolveAttribute(R.attr.cardBackgroundColor, tV, true)
 
-    public class article(
-        var preview: String?,
-        var zag: String?,
-        var href: String?,
-        var text: String?,
-        var hqimage: String?
-    ) {
-
+        return Event(
+            color = tV.data,
+            author = "Новости НГТУ",
+            type = "article",
+            title = this.zag.toString(),
+            description = this.href.toString(),
+            startTime = null,
+            stopTime = null,
+            place = null,
+            imageLink = this.preview,
+            links = arrayListOf(android.util.Pair("Новость на сайте НГТУ", this.href.toString()))
+        )
     }
+}
 
+fun isColorDark(color: Int): Boolean {
+    val darkness: Double = 1 - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255
+    return if (darkness < 0.5) {
+        false // It's a light color
+    } else {
+        true // It's a dark color
+    }
+}
 
+class NotificationsFragment : Fragment() {
     fun String.upperBound (input: String) : Int {
         return intern().indexOf(input) + input.length
     }
@@ -170,11 +201,6 @@ class NotificationsFragment : Fragment() {
                 Log.d("Отдельные новости", e.toString())
                 return output
             }
-//            Log.i("Заголовок", output[i].zag.toString())
-//            Log.i("href", output[i].href.toString())
-//            Log.i("Preview", output[i].preview.toString())
-//            Log.i("Статья", output[i].text.toString())
-//            Log.i("HQ Image", output[i].hqimage.toString())
         }
         return output
     }
@@ -229,6 +255,20 @@ class NotificationsFragment : Fragment() {
         return output
     }
 
+    fun loadEventsAndArticles(context: Context, callback: (ArrayList<Event>) -> Unit){
+        thread {
+            val oldNewsString = getLatestNews()
+            val oldNews = scrapeNews(oldNewsString).map {it.toEvent(context)}
+            newLoadEvents(context, success = { events ->
+                callback(ArrayList((events.sorted() + oldNews)))
+            }, error = {
+                callback(ArrayList(oldNews))
+            })
+//            loadEvents { events ->
+//                callback(ArrayList((events + oldNews).sortedBy {it.startTime}))
+//            }
+        }
+    }
 
     private lateinit var notificationsViewModel: NotificationsViewModel
 
@@ -240,94 +280,102 @@ class NotificationsFragment : Fragment() {
         notificationsViewModel =
                 ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_notifications, container, false)
+
+        var events = ArrayList<Event>()
+
+        resetBadge(activity as MainActivity?, requireContext())
+
         val pullToRefresh = root.findViewById<SwipeRefreshLayout>(R.id.pullToRefreshNews)
         val newsView = root.findViewById<ListView>(R.id.newsList)
-        newsView.adapter = MyCustomAdapter(requireContext())
+        newsView.adapter = eventsAdapter(requireContext(), ArrayList<Event>())
 
-
-        thread {
-            var newsString = getLatestNews()
-            var tempNews = scrapeNews(newsString)
-            this.activity?.runOnUiThread {
-                var adapter = newsView.adapter as MyCustomAdapter
-                adapter.news = tempNews
-                adapter.notifyDataSetChanged()
-            }
-        }
-
-        pullToRefresh.setOnRefreshListener {
-            thread {
-                var newsString = getLatestNews()
-                var tempNews = scrapeNews(newsString)
-                this.activity?.runOnUiThread {
-                    var adapter = newsView.adapter as MyCustomAdapter
-                    adapter.news = tempNews
-                    adapter.notifyDataSetChanged()
-                    pullToRefresh.isRefreshing = false
+        fun loadEvents(){
+            loadEventsAndArticles(requireContext()){ loaded ->
+                events = loaded
+                if(isAdded){
+                    requireActivity().runOnUiThread {
+                        val adapter = newsView.adapter as eventsAdapter
+                        adapter.events = events
+                        adapter.notifyDataSetChanged()
+                        pullToRefresh.isRefreshing = false
+                    }
                 }
             }
         }
 
+        if (isAdded){
+            loadEvents()
+        }
 
-//        val textView: TextView = root.findViewById(R.id.text_notifications)
-//        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
+        pullToRefresh.isRefreshing = true
+        pullToRefresh.setOnRefreshListener {
+            loadEvents()
+        }
         return root
     }
 
-    private class MyCustomAdapter (context : Context): BaseAdapter() {
+    private class eventsAdapter(context: Context, events: ArrayList<Event>): BaseAdapter(){
 
-        private val mContext : Context
-        public var news = ArrayList<article>()
+        val context: Context
+        public var events: ArrayList<Event>
 
         init {
-            mContext = context
+            this.context = context
+            this.events = events
         }
 
-        override fun getCount () : Int {
-            if (news.size != 0) return news.size
-            return 8
+        override fun getCount(): Int {
+            return events.size
         }
 
-        override fun getItemId(position: Int) : Long {
+        override fun getItem(position: Int): Any {
+            return "i am event"
+        }
+
+        override fun getItemId(position: Int): Long {
             return position.toLong()
         }
 
-        override fun getItem (position: Int) : Any {
-            return "Test String"
-        }
-
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-            val layoutInflater = LayoutInflater.from(mContext)
-            val cellRecource = R.layout.fragment_cell
-            val news_cell : View = layoutInflater.inflate(cellRecource, parent, false)
-            val zag = news_cell.findViewById<TextView>(R.id.newsZag)
-            var img = news_cell.findViewById<ImageView>(R.id.newsImage)
-            val card : CardView = news_cell.findViewById(R.id.cardView)
+            val inflater = LayoutInflater.from(context)
+            val cell = inflater.inflate(R.layout.event_cell, parent, false)
 
+            val card : CardView = cell.findViewById(R.id.eventCard)
+            val time : TextView = cell.findViewById(R.id.eventTimeLabel)
+            val author : TextView = cell.findViewById(R.id.eventAuthorLabel)
+            val title : TextView = cell.findViewById(R.id.eventTitleLabel)
+            val image : ImageView = cell.findViewById(R.id.eventImage)
+            var titleBackground: LinearLayout = cell.findViewById(R.id.eventCardTitle)
 
-
-
-            if (news.count() >= position + 1){
-                zag.text = news[position].zag
-                Picasso.get().load(news[position].preview).into(img)
-                card.setOnClickListener{
-                    Log.i("Карточка работает", position.toString())
-                    val openArticle : Intent = Intent(mContext, ArticleActivity::class.java)
-                    openArticle.putExtra("zag", news[position].zag)
-                    openArticle.putExtra("text", news[position].text)
-                    openArticle.putExtra("image", news[position].preview)
-                    openArticle.putExtra("href", news[position].href)
-                    this.mContext.startActivity(openArticle)
-                }
+            card.setOnClickListener {
+                val intent = Intent(context, singleEventActivity::class.java)
+                freeEvent = events[position]
+                context.startActivity(intent)
             }
 
-            return news_cell
+            if (events[position].startTime != null && events[position].type == "event"){
+                val date = Date(events[position].startTime!!)
+                val formatter = SimpleDateFormat("dd MMMM HH:mm", Locale.getDefault())
+                time.text = formatter.format(date).toUpperCase()
+                Log.i("hihi", time.text.toString())
+                //тут надо сделать кучу вещей
+            } else {
+                time.text = "Новость".toUpperCase()
+            }
+
+            author.text = events[position].author.toUpperCase()
+            title.text = events[position].title
+
+            Picasso.get().load(events[position].imageLink).into(image)
+
+            val textColor = if (isColorDark(events[position].color)) Color.WHITE else Color.BLACK
+            titleBackground.setBackgroundColor(events[position].color)
+            time.setTextColor(textColor)
+            author.setTextColor(textColor)
+            title.setTextColor(textColor)
+
+
+            return cell
         }
     }
-
-
-
-
 }

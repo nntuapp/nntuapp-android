@@ -11,6 +11,22 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONArray
 import org.json.JSONObject
 
+//данные для переносов недель
+
+//startWeek: неделя календаря, соответствующая начальной в расписании
+//0, если начинается с чётной
+//1. если с нечётной
+//используется как в расписании в приложении, так и в виджетах
+val startWeek = 35
+
+//иногда первая неделя четная, поэтому мы её будем считать нулевой
+//если первая неделя нечетная, additionalWeek = 1
+//если первая неделя четная, additionalWeek = 0
+val additionalWeek = 1
+
+//Дата окончания событий в календаре: 31 мая 2021 -> 20210531
+val calendarExpDate = "20211231"
+
 
 class Lesson (
     var startTime : String,
@@ -222,7 +238,7 @@ fun downloadTT(groupName: String, context: Context, callBack: (ArrayList<Lesson>
     params.put("key", receiveKey)
     params.put("groupName", groupName.replace("DROP","").replace("'",""))
 
-    val url = "http://194.58.97.17:3000"
+    val url = "https://nntuapp.site:8000"
     var startTimes = ArrayList<String>()
     var stopTimes = ArrayList<String>()
     var days = ArrayList<Int>()

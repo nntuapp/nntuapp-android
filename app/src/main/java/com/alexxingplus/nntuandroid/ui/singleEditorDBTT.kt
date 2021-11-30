@@ -15,10 +15,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.alexxingplus.nntuandroid.R
-import kotlinx.android.synthetic.main.content_single_editor_dbtt.view.*
 import java.lang.Exception
 import com.alexxingplus.nntuandroid.ui.freeLesson
-import kotlinx.android.synthetic.main.content_single_editor_dbtt.*
 
 class singleEditorDBTT : AppCompatActivity() {
 
@@ -134,7 +132,7 @@ class singleEditorDBTT : AppCompatActivity() {
                 if (isCard){
                     colorizeTime(startIndex, true)
                 } else {
-                    colorizeField(customStartField, true)
+                    colorizeField(customStartTimeField, true)
                     colorizeField(customStopTimeField, true)
                     customStartTimeField.setText(lesson.startTime)
                     customStopTimeField.setText(lesson.stopTime)
@@ -148,13 +146,13 @@ class singleEditorDBTT : AppCompatActivity() {
                 if (isCard){
                     colorizeTime(startIndex, true)
                 } else {
-                    colorizeField(customStartField, true)
+                    colorizeField(customStartTimeField, true)
                     colorizeField(customStopTimeField, true)
                     customStartTimeField.setText(lesson.startTime)
                     customStopTimeField.setText(lesson.stopTime)
                 }
             } else {
-                colorizeField(customStartField, true)
+                colorizeField(customStartTimeField, true)
                 colorizeField(customStopTimeField, true)
                 customStartTimeField.setText(lesson.startTime)
                 customStopTimeField.setText(lesson.stopTime)
@@ -165,11 +163,11 @@ class singleEditorDBTT : AppCompatActivity() {
                 tempWeeks.add(week)
             }
             if (tempWeeks.contains(-2)){
-                colorizeLabel(evenLabel, true)
+                colorizeLabel(weekLabels[0], true)
                 tempWeeks.remove(-2)
             }
             if (tempWeeks.contains(-1)){
-                colorizeLabel(oddLabel, true)
+                colorizeLabel(weekLabels[1], true)
                 tempWeeks.remove(-1)
             }
             if (tempWeeks.size > 0){

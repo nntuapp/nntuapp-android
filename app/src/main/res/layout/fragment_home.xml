@@ -39,12 +39,15 @@
             android:inputType="number" />
 
         <Button
-            android:id="@+id/searchButton"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:id="@+id/nntuapp_searchButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:elevation="0dp"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:text="@string/Найти" />
+
+
 
 
     </LinearLayout>
@@ -66,6 +69,7 @@
             android:orientation="horizontal"
             android:padding="10dp"
             android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:clipChildren="false"
             android:clipToPadding="false">
 
@@ -94,7 +98,7 @@
                         android:layout_gravity="center"
                         android:foregroundGravity="center"
                         android:src="@drawable/left_arrow"
-                        android:tint="?attr/colorAccent" />
+                        app:tint="?attr/colorAccent" />
 
                     <TextView
                         android:id="@+id/buildingText"
@@ -119,7 +123,7 @@
                         android:layout_weight="1"
                         android:foregroundGravity="center"
                         android:src="@drawable/right_arrow"
-                        android:tint="?attr/colorAccent"/>
+                        app:tint="?attr/colorAccent"/>
 
                 </LinearLayout>
 
@@ -167,7 +171,7 @@
                         android:layout_gravity="center"
                         android:foregroundGravity="center"
                         android:src="@drawable/left_arrow"
-                        android:tint="?attr/colorAccent" />
+                        app:tint="?attr/colorAccent" />
 
                     <TextView
                         android:id="@+id/floorText"
@@ -192,7 +196,7 @@
                         android:layout_weight="1"
                         android:foregroundGravity="center"
                         android:src="@drawable/right_arrow"
-                        android:tint="?attr/colorAccent"/>
+                        app:tint="?attr/colorAccent"/>
 
                 </LinearLayout>
 
@@ -230,6 +234,7 @@
                     android:id="@+id/moreRoomsButton"
                     android:layout_width="70dp"
                     android:layout_height="match_parent"
+                    android:elevation="0dp"
                     style="@style/Widget.AppCompat.Button.Borderless.Colored"
                     android:text="@string/Ещё"/>
 
@@ -243,7 +248,7 @@
                 android:layout_marginStart="10dp"
                 android:background="@drawable/radius"
                 android:src="@drawable/ic_rotate_right_black_24dp"
-                android:tint="@color/NNTUblue"/>
+                app:tint="@color/NNTUblue"/>
 
 
         </LinearLayout>
