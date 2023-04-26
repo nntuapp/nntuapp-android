@@ -113,6 +113,4 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         const val COLUMN_TEACHER = "teacher"
         const val COLUMN_NOTES = "notes"
     }
-
-
 }

@@ -54,23 +54,9 @@ class HomeFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        requireContext().setTheme(R.style.AppTheme)
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-
-//        val userDefaults = activity?.getPreferences(Context.MODE_PRIVATE) ?: return root
-        val mode = getDefaults("mode", requireContext())
-        if (mode == -1){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else if (mode == 0){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
-
-        updateLastID(activity as MainActivity?, requireContext())
-
 
         //vals from xml
         val editableTextView : TextView = root.findViewById(R.id.editText)

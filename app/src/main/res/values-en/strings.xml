@@ -108,5 +108,6 @@
     <string name="Сообщение_с_кодом">Yes, it is. We need it to protect the timetable from harmful random changes. With giving a code we can be aware of who the person is and if something went wrong we can block the spammer and never give the code again. The code updates every 24 hours.</string>
     <string name="Темная_тема">Dark theme changes automatically on Android 10 and higher</string>
     <string name="title_activity_dbtt_editor">Timetable editor</string>
+    <string name="tasks_tab">Tasks</string>
 
 </resources>

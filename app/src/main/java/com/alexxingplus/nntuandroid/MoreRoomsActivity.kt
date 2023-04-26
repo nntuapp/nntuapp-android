@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
+import com.alexxingplus.nntuandroid.ui.NavigationActivity
 
 
 class MoreRoomsActivity : AppCompatActivity() {
@@ -184,7 +185,7 @@ class MoreRoomsActivity : AppCompatActivity() {
             roomName.text = keys[position]
 
             roomCard.setOnClickListener {
-                val roomIntent = Intent(mContext, MainActivity::class.java)
+                val roomIntent = Intent(mContext, NavigationActivity::class.java)
                 roomIntent.putExtra("room", mData[keys[position]]!!)
                 this.mContext.startActivity(roomIntent)
             }

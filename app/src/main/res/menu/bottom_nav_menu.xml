@@ -6,20 +6,20 @@
         android:icon="@drawable/ic_star_black_24dp"
         android:title="@string/title_events" />
 
-    <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_looks_5_24px"
-        android:title="@string/title_marks" />
-
-    <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_map_24px"
-        android:title="@string/title_navigation" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_dashboard"-->
+<!--        android:icon="@drawable/ic_looks_5_24px"-->
+<!--        android:title="@string/title_marks" />-->
 
     <item
         android:id="@+id/navigation_timetable"
         android:icon="@drawable/table_24px"
         android:title="@string/title_timeTable"/>
+
+    <item
+        android:id="@+id/navigation_tasks"
+        android:icon="@drawable/ic_checklist"
+        android:title="@string/tasks_tab"/>
 
     <item
         android:id="@+id/navigation_settings"

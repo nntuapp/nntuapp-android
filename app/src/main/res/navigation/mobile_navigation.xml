@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home"
+    app:startDestination="@+id/navigation_timetable"
     >
 
     <fragment
@@ -22,8 +22,7 @@
         android:id="@+id/navigation_notifications"
         android:name="com.alexxingplus.nntuandroid.ui.news.NotificationsFragment"
         android:label="@string/title_events"
-        tools:layout="@layout/fragment_notifications" >
-    </fragment>
+        tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_timetable"
@@ -38,6 +37,12 @@
         android:label="@string/Ещё"
         tools:layout="@layout/more_fragment">
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_tasks"
+        android:name="com.alexxingplus.nntuandroid.ui.tasks.TaskFragment"
+        android:label="@string/tasks_tab"
+        tools:layout="@layout/fragment_task"/>
 
     <activity
         android:id="@+id/navigation_article"

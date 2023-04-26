@@ -283,6 +283,22 @@
                     android:text="🔎️  Поиск преподавателя"
                     android:padding="15dp"/>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"
+                    android:layout_marginStart="20dp"/>
+
+                <TextView
+                    android:id="@+id/findARoom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:textSize="17dp"
+                    android:textColor="?attr/color"
+                    android:text="📍 Поиск аудитории"
+                    android:padding="15dp"/>
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

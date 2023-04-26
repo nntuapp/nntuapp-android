@@ -21,29 +21,36 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".ui.news.singleEventActivity"
+            android:exported="true"
             android:label="@string/title_event"/>
         <activity
             android:name=".ui.teachers.SingleTeacherActivity"
+            android:exported="true"
             android:label="@string/Преподаватель" />
         <activity
             android:name=".ui.teachers.TeachersListActivity"
+            android:exported="true"
             android:label="Поиск преподавателя" />
         <activity
             android:name=".ui.AverageMarkActivity"
+            android:exported="true"
             android:label="Средний балл" />
         <activity
             android:name=".ui.ShowALessonActivity"
+            android:exported="true"
             android:label="@string/title_timeTable" />
         <activity
             android:name=".ui.singleEditorDBTT"
+            android:exported="true"
             android:label="@string/title_activity_single_editor_d_b_t_t"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.DbttEditorActivity"
+            android:exported="true"
             android:label="@string/title_activity_dbtt_editor"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <receiver android:name=".veryBig">
+        <receiver android:name=".veryBig" android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -52,7 +59,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/very_big_info" />
         </receiver>
-        <receiver android:name=".smol">
+        <receiver android:name=".smol" android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -64,21 +71,39 @@
 
         <activity
             android:name=".MoreRoomsActivity"
+            android:exported="true"
             android:label="@string/Поиск_аудитории" />
         <activity
             android:name=".ui.Editor"
+            android:exported="true"
             android:label="@string/Редактор" />
         <activity
             android:name=".ui.CodeActivity"
+            android:exported="true"
             android:label="@string/Редактор" />
         <activity
             android:name=".ui.SingleMarkActivity"
+            android:exported="true"
             android:label="@string/Оценки" />
         <activity
             android:name=".ui.ArticleActivity"
+            android:exported="true"
             android:label="@string/title_article" />
         <activity
+            android:name=".ui.tasks.TaskEditor"
+            android:exported="true"
+            android:label="Создание задачи"/>
+        <activity
+            android:name=".ui.tasks.SingleTask"
+            android:exported="true"
+            android:label="Задача"/>
+        <activity
+            android:name=".ui.NavigationActivity"
+            android:exported="true"
+            android:label="@string/title_navigation"/>
+        <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

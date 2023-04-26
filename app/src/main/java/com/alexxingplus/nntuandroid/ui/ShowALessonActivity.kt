@@ -141,7 +141,7 @@ class ShowALessonActivity : AppCompatActivity() {
                 roomName.text = roomsAvaible[position - 1]
                 image.setImageDrawable(images[position - 1])
                 cell.setOnClickListener {
-                    val intent = Intent(mContext, MainActivity::class.java)
+                    val intent = Intent(mContext, NavigationActivity::class.java)
                     intent.putExtra("room", roomsAvaible[position - 1])
                     mContext.startActivity(intent)
                 }
