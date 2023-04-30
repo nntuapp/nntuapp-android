@@ -109,5 +109,6 @@
     <string name="Темная_тема">Автоматическая темная тема поддерживается на Android 10 и выше</string>
     <string name="title_activity_dbtt_editor">Редактор расписания</string>
     <string name="title_activity_single_editor_d_b_t_t">Редактор</string>
+    <string name="tasks_tab">Задачи</string>
 
 </resources>

@@ -92,6 +92,7 @@ class settings : Fragment() {
         //more buttons
         val goToSettings : TextView = root.findViewById(R.id.goToSettings)
         val findTeacher: TextView = root.findViewById(R.id.findATeacher)
+        val findRoom: TextView = root.findViewById(R.id.findARoom)
 
         val warningLabel : TextView = root.findViewById(R.id.warningLabel)
 
@@ -309,6 +310,11 @@ class settings : Fragment() {
 
         findTeacher.setOnClickListener{
             val intent = Intent(requireContext(), TeachersListActivity::class.java)
+            requireContext().startActivity(intent)
+        }
+
+        findRoom.setOnClickListener {
+            val intent = Intent(requireContext(), NavigationActivity::class.java)
             requireContext().startActivity(intent)
         }
 

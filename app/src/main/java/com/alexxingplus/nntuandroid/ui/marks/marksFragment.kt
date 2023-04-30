@@ -13,16 +13,25 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexxingplus.nntuandroid.MainActivity
-import com.android.volley.AuthFailureError
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import com.alexxingplus.nntuandroid.R
 import com.alexxingplus.nntuandroid.ui.AverageMarkActivity
 import com.alexxingplus.nntuandroid.ui.SingleMarkActivity
 import com.alexxingplus.nntuandroid.ui.news.updateLastID
+import com.android.volley.AuthFailureError
+import com.android.volley.NetworkResponse
+import com.android.volley.ParseError
+import com.android.volley.Response
+import com.android.volley.toolbox.HttpHeaderParser
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import okhttp3.*
+import org.json.JSONException
+import org.json.JSONObject
 import org.jsoup.Jsoup
+import java.io.*
+import java.util.zip.GZIPInputStream
 import kotlin.math.roundToInt
+
 
 class Mark
     (val disName : String?,
@@ -92,9 +101,6 @@ fun makeADiploma(marks: ArrayList<Sem>): HashMap<String, Int>?{
 
     var output = HashMap<String, Int>()
     for (i in 0 until subjectMarks.size){
-        if (subjectNames[i] == "Алгебра и геометрия"){
-            print("Нашлось")
-        }
         if (howManyInSemester[i] > 1){
             subjectMarks[i] = subjectMarks[i]/howManyInSemester[i]
         }
@@ -222,10 +228,6 @@ class DashboardFragment : Fragment() {
         var sems = ArrayList<String>()
         var semNumbers = ArrayList<Int>()
         while (webContent.contains(semestr)){
-//            var stopSymbol = webContent.upperBound(semestr) - 1
-//            sems.add(webContent.prefix(stopSymbol))
-//            webContent = webContent.suffix(stopSymbol)
-
             var numberSymbol = webContent.lowerBound(semestr) - 1
             while (webContent[numberSymbol].isDigit()) {
                 numberSymbol -= 1
@@ -336,24 +338,6 @@ class DashboardFragment : Fragment() {
             }
             tempSem = Sem()
         }
-
-//        for (i in 0..sems.count()-1){
-//            output.add(Mark(disName = "${i+1} семестр ", fkn = null, propFkn = null, skn = null, propSkn = null, type = "АХАХХАХАХАХХАХ", result = null))
-//            for (j in 0..Sems[i].Marks.count()-1){
-//                output.add(Sems[i].Marks[j])
-//            }
-//        }
-
-//        for (i in 0..output.count()-1){
-////            Log.i("Название", output[i].disName.toString())
-////            Log.i("1кн", output[i].fkn.toString())
-////            Log.i("1кн пропущено", output[i].propFkn.toString())
-////            Log.i("2кн", output[i].skn.toString())
-////            Log.i("2кн пропущено", output[i].propSkn.toString())
-////            Log.i("Тип", output[i].type.toString())
-////            Log.i("Результат", output[i].result.toString())
-//            Log.i(output[i].disName.toString(), output[i].type.toString())
-//        }
 
         return Sems
     }
@@ -472,10 +456,8 @@ class DashboardFragment : Fragment() {
             var output = String()
             val queue = Volley.newRequestQueue(this.context)
             val url = "https://www.nntu.ru/frontend/web/student_info.php"
-
             val request = object : StringRequest(com.android.volley.Request.Method.POST, url, Response.Listener<String> { response ->
                 output = response
-                Log.d("html", output)
                 sems = getMarks(output)
                 this.activity?.runOnUiThread {
                     var adapter = markList.adapter as MyCustomAdapter
@@ -495,24 +477,49 @@ class DashboardFragment : Fragment() {
                 Log.d("Оно не сработало", "$error")
                 if (context != null) {
                     Toast.makeText(context, "Проблемы с подключением к интернету", Toast.LENGTH_LONG).show()}
-                })
-
+            })
             {
                 @Throws(AuthFailureError::class)
-                override fun getParams(): MutableMap<String, String> {
-                    val params2 = HashMap<String, String>()
-                    params2["last_name"] = secondName
-                    params2["first_name"] = name
-                    params2["otc"] = otchName
-                    params2["n_zach"] = nstud
-                    params2["learn_type"] = userType
-                    return params2
+                override fun getHeaders(): MutableMap<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["referer"] = "https://www.nntu.ru/content/studentam/uspevaemost"
+                    headers["Accept-Encoding"] = "gzip, deflate, br"
+                    headers["connection"] = "keep-alive"
+                    headers["Accept-Language"] = "en-GB,en;q=0.9"
+                    headers["Accept"] = "*/*"
+                    return headers
+                }
+
+                override fun getBody(): ByteArray {
+                    val body = "last_name="+secondName+"&first_name="+name+"&otc="+otchName+"&n_zach="+nstud+"&learn_type="+userType
+                    return body.toByteArray(Charsets.UTF_8)
+                }
+
+                override fun getBodyContentType(): String {
+                    return "application/x-www-form-urlencoded; charset=UTF-8"
+                }
+
+                override fun parseNetworkResponse(response: NetworkResponse): Response<String> {
+                    var output: String? = ""
+                    try {
+                        val gStream = GZIPInputStream(ByteArrayInputStream(response.data))
+                        val reader = InputStreamReader(gStream)
+                        val `in` = BufferedReader(reader)
+                        var read: String?
+                        while (`in`.readLine().also { read = it } != null) {
+                            output += read
+                        }
+                        reader.close()
+                        `in`.close()
+                        gStream.close()
+                    } catch (e: IOException) {
+                        return Response.error(ParseError())
+                    }
+                    return Response.success(output, HttpHeaderParser.parseCacheHeaders(response))
                 }
             }
             queue.add(request)
         }
-
-
 
         nextSemButton.setOnClickListener {
             nextSem()

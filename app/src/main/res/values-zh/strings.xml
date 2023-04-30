@@ -108,5 +108,6 @@
     <string name="Сообщение_с_кодом">该代码是必要的，以防止损害的时间表。随着代码接收程序的帮助下，我们可以跟踪和谁改变了他的日程安排，如果需要限制访问。该代码是每24小时更新一次。</string>
     <string name="Темная_тема">自动黑暗的主题支持Android上10以上</string>
     <string name="title_activity_dbtt_editor">Timetable editor</string>
+    <string name="tasks_tab">任务</string>
 
 </resources>

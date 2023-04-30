@@ -3,23 +3,22 @@ package com.alexxingplus.nntuandroid.ui
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.*
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.cardview.widget.CardView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.HtmlCompat
+import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexxingplus.nntuandroid.MainActivity
-
 import com.alexxingplus.nntuandroid.R
 import com.alexxingplus.nntuandroid.ui.news.updateLastID
 import java.util.*
-import java.util.jar.Manifest
-import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
+
 
 fun String.upperBound (input: String) : Int {
     return intern().indexOf(input) + input.length
@@ -211,10 +210,7 @@ class timeTableFragment : Fragment() {
         if (adapterToUpdate != null) { 
             adapterToUpdate!!.areAllActive = getDefaults("areAllActive", requireContext()) ?: 0 == 1
             adapterToUpdate!!.notifyDataSetChanged()
-
             autoUpdate = getDefaults("isUpdating", context) ?: 0 == 1
-
-
         }
     }
 
@@ -226,7 +222,17 @@ class timeTableFragment : Fragment() {
         // Inflate the layout for this fragment
         val root =  inflater.inflate(R.layout.fragment_time_table, container, false)
 
+        //setup
+        requireContext().setTheme(R.style.AppTheme)
         updateLastID(activity as MainActivity?, requireContext())
+        val mode = getDefaults("mode", requireContext())
+        if (mode == -1){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else if (mode == 0){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
 
         val pullToRefresh = root.findViewById<SwipeRefreshLayout>(R.id.pullToRefreshTimeTable)
         val list : ListView = root.findViewById(R.id.timeTableList)
@@ -236,7 +242,6 @@ class timeTableFragment : Fragment() {
         val calendarButton: ImageButton = root.findViewById(R.id.calendarButton)
         val goToSettingsButton: ImageButton = root.findViewById(R.id.newSettingsButtonFromTT)
 
-
         val userDefaults = activity?.getPreferences(Context.MODE_PRIVATE) ?: return root
         var i = 0
         val entered = userDefaults.getBoolean("entered", false)
@@ -245,18 +250,15 @@ class timeTableFragment : Fragment() {
             Toast.makeText(context, "Вход не выполнен", Toast.LENGTH_LONG).show()
         }
 
-        var nowWeek = getNowWeek()
 
+        var nowWeek = getNowWeek()
 
         areAllActive = getDefaults("areAllActive", context) ?: 0 == 1
 
         val adapter = TTadapter(requireContext(), tt, nowWeek, areAllActive)
         list.adapter = adapter
         adapterToUpdate = list.adapter as TTadapter
-
-//        if (areAllActive) {
-//            showAllButton.setImageResource(R.drawable.ic_less)
-//        }
+        val db = DBHelper(requireContext(), null)
 
         fun updateScreen(){
             if (nowWeek <= 0){
@@ -274,7 +276,7 @@ class timeTableFragment : Fragment() {
             val colorTag = if (nowWeek % 2 == 0) "<font color = #0072bc>" else "<font color = #9e280e>"
 
             val tempWeekLabel = "$colorTag$boldStart$nowWeek неделя $boldEnd</font>"
-            
+
             weekLabel.setText(HtmlCompat.fromHtml(tempWeekLabel, HtmlCompat.FROM_HTML_MODE_LEGACY))
             adapter.tt = getTTForView(tt, nowWeek)
             adapter.week = nowWeek
@@ -288,13 +290,21 @@ class timeTableFragment : Fragment() {
 
         updateWeek()
 
+        fun loadLocalTT(){
+            thread {
+                tt = db.loadTTfromSQLite()
+                this.activity?.runOnUiThread {
+                    adapter.tt = getTTForView(tt, nowWeek)
+                    adapter.notifyDataSetChanged()
+                }
+            }
+        }
+
         fun updateTT(){
+            if (!isAdded) {return}
             thread {
                 autoUpdate = getDefaults("isUpdating", context) ?: 0 == 1
-//                Log.d("autoUpdate", autoUpdate.toString())
                 val calSync = getDefaults("calSync", context) ?: 0 == 1
-                val db = DBHelper(requireContext(), null)
-                tt = db.loadTTfromSQLite()
                 if (autoUpdate){
                     thread {
                         downloadTT(group, requireContext(), fun(lessons){
@@ -312,7 +322,6 @@ class timeTableFragment : Fragment() {
                             } else {
                                 this.activity?.runOnUiThread{
                                     Toast.makeText(requireContext(), "Расписание не было загружено", Toast.LENGTH_SHORT).show()
-
                                     adapter.tt = getTTForView(tt, nowWeek)
                                     adapter.notifyDataSetChanged()
                                     pullToRefresh.isRefreshing = false
@@ -343,34 +352,18 @@ class timeTableFragment : Fragment() {
             updateScreen()
         }
 
-//        val ttWindow: View = root.findViewById(R.id.ttLayout)
-
-//        val viewForSwipes: View = root.findViewById(R.id.timeTableList)
-//        val swiper = object : OnSwipeTouchListener(requireActivity()){
-//            override fun onSwipeLeft() {
-//                super.onSwipeLeft()
-//                nowWeek += 1
-//                updateScreen()
-//            }
-//
-//            override fun onSwipeRight() {
-//                super.onSwipeRight()
-//                nowWeek -= 1
-//                updateScreen()
-//            }
-//        }
-//
-//        viewForSwipes.setOnTouchListener(swiper)
-
-//
-//        this.view?.setOnTouchListener(swiper)
-//        list.setOnTouchListener(swiper)
-
-        updateTT()
+        loadLocalTT()
+        thread {
+            while (!isAdded) {
+                Thread.sleep(2000)
+            }
+            updateTT()
+        }
 
         pullToRefresh.setProgressViewOffset(false, 80, 150)
 
         pullToRefresh.setOnRefreshListener {
+            loadLocalTT()
             updateTT()
         }
 
@@ -382,7 +375,6 @@ class timeTableFragment : Fragment() {
 
 
             val dpd = DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-
                 // Display Selected date in textbox
                 weekLabel.setText("" + dayOfMonth + " " + monthOfYear.toString() + ", " + year)
                 val moment = Calendar.getInstance(Locale.GERMANY)
@@ -405,11 +397,6 @@ class timeTableFragment : Fragment() {
             intent.putExtra("group", userDefaults.getString("group", "").toString())
             requireContext().startActivity(intent)
         }
-
-//        val calSync = getDefaults("calSync", requireContext()) ?: 0 == 1
-//        if (calSync && tt.size >0){
-//            addTTtoCalendar(requireActivity(), tt)
-//        }
 
         return root
     }

@@ -14,6 +14,7 @@ import com.alexxingplus.nntuandroid.ui.eventsURL
 import com.alexxingplus.nntuandroid.ui.getDefaults
 import com.alexxingplus.nntuandroid.ui.lastIdURL
 import com.alexxingplus.nntuandroid.ui.setDefaults
+import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyError
@@ -117,24 +118,6 @@ data class manyEvents(
     val data: ArrayList<PreEvent>
 ){}
 
-fun loadEvents(callback: (ArrayList<Event>) -> Unit){
-    val url = URL(eventsURL)
-    try {
-        val JSONstring = url.readText()
-        Log.d("json", JSONstring)
-        val preData = Klaxon().parse<manyEvents>(JSONstring)
-        if (preData != null){
-            val result = ArrayList<Event>()
-            for (preEvent in preData.data){
-                result.add(preEvent.toEvent())
-            }
-            callback(result)
-        }
-    } catch (e: Exception){
-        Log.d("Events went wrong", e.toString())
-    }
-}
-
 fun linksFromArray(input: String): ArrayList<Pair<String, String>>{
     val unorderedArray = input.split(",")
     val output = ArrayList<Pair<String, String>>()
@@ -146,7 +129,7 @@ fun linksFromArray(input: String): ArrayList<Pair<String, String>>{
 
 fun newLoadEvents(context: Context, success: (ArrayList<Event>) -> Unit, error: () -> Unit) {
     val queue = Volley.newRequestQueue(context)
-    val request = JsonObjectRequest(Request.Method.GET, eventsURL, null, { response ->
+    val request = object: JsonObjectRequest(Request.Method.GET, eventsURL, null, { response ->
         val output = ArrayList<Event>()
         val eventsDataArray = response.getJSONArray("data")
         for (i in 0 until eventsDataArray.length()){
@@ -172,7 +155,18 @@ fun newLoadEvents(context: Context, success: (ArrayList<Event>) -> Unit, error: 
     }, { error ->
         Log.d("request@newLoadEvents", error.toString())
         error()
-    })
+    }) {
+        @Throws(AuthFailureError::class)
+        override fun getHeaders(): MutableMap<String, String> {
+            val headers = HashMap<String, String>()
+            headers["Accept-Encoding"] = "gzip, deflate, br"
+            headers["connection"] = "keep-alive"
+            headers["Accept-Language"] = "en-GB,en;q=0.9"
+            headers["Accept"] = "*/*"
+            headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+            return headers
+        }
+    }
     queue.add(request)
 }
 

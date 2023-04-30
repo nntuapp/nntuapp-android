@@ -4,15 +4,15 @@ apply plugin: 'kotlin-parcelize'
 apply plugin: 'org.greenrobot.greendao'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.alexxingplus.nntuandroid"
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 51
-        versionName "3.2"
+        targetSdkVersion 31
+        versionCode 65
+        versionName "4.0.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

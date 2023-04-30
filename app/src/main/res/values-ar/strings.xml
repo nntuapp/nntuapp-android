@@ -107,5 +107,6 @@
     <string name="Сообщение_с_кодом">رمز ضروري للحماية من ضرر للجدول الزمني. مع مساعدة من قانون الإجراءات المستقبلة، يمكننا تتبع متى والذين غيروا جدول أعماله لتقييد الوصول إذا لزم الأمر. يتم تحديث رمز كل 24 ساعة.</string>
     <string name="Темная_тема">ويدعم موضوع الظلام التلقائي على الروبوت 10 وفوق</string>
     <string name="title_activity_dbtt_editor">Timetable editor</string>
+    <string name="tasks_tab">مهام</string>
 
 </resources>

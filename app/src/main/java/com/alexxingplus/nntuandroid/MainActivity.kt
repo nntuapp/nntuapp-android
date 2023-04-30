@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         navView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.navigation_timetable, R.id.navigation_settings))
+            R.id.navigation_notifications, R.id.navigation_dashboard, R.id.navigation_timetable, R.id.navigation_tasks, R.id.navigation_settings))
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         setupActionBarWithNavController(navController, appBarConfiguration)

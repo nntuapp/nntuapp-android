@@ -18,14 +18,28 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexxingplus.nntuandroid.MainActivity
 import com.alexxingplus.nntuandroid.R
 import com.alexxingplus.nntuandroid.ui.ArticleActivity
+import com.alexxingplus.nntuandroid.ui.eventsURL
+import com.android.volley.*
+import com.android.volley.toolbox.HttpHeaderParser
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import org.jsoup.Jsoup
+import retrofit2.http.GET
+import java.io.BufferedReader
+import java.io.ByteArrayInputStream
+import java.io.IOException
+import java.io.InputStreamReader
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.zip.GZIPInputStream
 import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
 
+
+const val newsURL = "https://www.nntu.ru/news/all/vse-novosti"
 
 public class article(
     var preview: String?,
@@ -80,17 +94,45 @@ class NotificationsFragment : Fragment() {
         return intern().substring(startIndex = 0, endIndex = upTo)
     }
 
-    private fun getLatestNews() : String {
-        //Эта функция должна вызываться в другом thread'e
-        val urlString = "https://www.nntu.ru/news/all/vse-novosti"
-        val url = URL(urlString)
-        var webContent = String()
-        try {
-            webContent = url.readText()
-        } catch (e: Exception) {
-            Log.d("Все новости",  e.toString())
+    private fun getLatestNews(context: Context, success: (String) -> Unit, error: () -> Unit) {
+        val queue = Volley.newRequestQueue(context)
+        val request = object: StringRequest(Method.GET, newsURL, Response.Listener<String> { str ->
+            success(str)
+        }, Response.ErrorListener { error ->
+            Log.d("request@newLoadEvents", error.toString())
+            error()
+        }){
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Accept-Encoding"] = "gzip, deflate, br"
+                headers["connection"] = "keep-alive"
+                headers["Accept-Language"] = "en-GB,en;q=0.9"
+                headers["Accept"] = "*/*"
+                headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+                return headers
+            }
+
+            override fun parseNetworkResponse(response: NetworkResponse): Response<String> {
+                var output: String? = ""
+                try {
+                    val gStream = GZIPInputStream(ByteArrayInputStream(response.data))
+                    val reader = InputStreamReader(gStream)
+                    val `in` = BufferedReader(reader)
+                    var read: String?
+                    while (`in`.readLine().also { read = it } != null) {
+                        output += read
+                    }
+                    reader.close()
+                    `in`.close()
+                    gStream.close()
+                } catch (e: IOException) {
+                    return Response.error(ParseError())
+                }
+                return Response.success(output, HttpHeaderParser.parseCacheHeaders(response))
+            }
         }
-        return webContent
+        queue.add(request)
     }
 
     private fun scrapeNews(input: String) : ArrayList<article> {
@@ -257,16 +299,20 @@ class NotificationsFragment : Fragment() {
 
     fun loadEventsAndArticles(context: Context, callback: (ArrayList<Event>) -> Unit){
         thread {
-            val oldNewsString = getLatestNews()
-            val oldNews = scrapeNews(oldNewsString).map {it.toEvent(context)}
-            newLoadEvents(context, success = { events ->
-                callback(ArrayList((events.sorted() + oldNews)))
+            getLatestNews(context, success = { html ->
+                val oldNews = scrapeNews(html).map {it.toEvent(context)}
+                newLoadEvents(context, success = { events ->
+                    callback(ArrayList((events.sorted() + oldNews)))
+                }, error = {
+                    callback(ArrayList(oldNews))
+                })
             }, error = {
-                callback(ArrayList(oldNews))
+                newLoadEvents(context, success = { events ->
+                    callback(ArrayList((events.sorted())))
+                }, error = {
+                    callback(ArrayList())
+                })
             })
-//            loadEvents { events ->
-//                callback(ArrayList((events + oldNews).sortedBy {it.startTime}))
-//            }
         }
     }
 
@@ -357,8 +403,6 @@ class NotificationsFragment : Fragment() {
                 val date = Date(events[position].startTime!!)
                 val formatter = SimpleDateFormat("dd MMMM HH:mm", Locale.getDefault())
                 time.text = formatter.format(date).toUpperCase()
-                Log.i("hihi", time.text.toString())
-                //тут надо сделать кучу вещей
             } else {
                 time.text = "Новость".toUpperCase()
             }

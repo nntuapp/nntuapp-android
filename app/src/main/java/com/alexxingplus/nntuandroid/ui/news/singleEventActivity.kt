@@ -22,11 +22,23 @@ import com.alexxingplus.nntuandroid.ui.lowerBound
 import com.alexxingplus.nntuandroid.ui.prefix
 import com.alexxingplus.nntuandroid.ui.suffix
 import com.alexxingplus.nntuandroid.ui.upperBound
+import com.android.volley.AuthFailureError
+import com.android.volley.NetworkResponse
+import com.android.volley.ParseError
+import com.android.volley.Response
+import com.android.volley.toolbox.HttpHeaderParser
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import org.jsoup.Jsoup
+import java.io.BufferedReader
+import java.io.ByteArrayInputStream
+import java.io.IOException
+import java.io.InputStreamReader
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.zip.GZIPInputStream
 import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
 
@@ -57,6 +69,47 @@ fun getColorForText(backgroundColor: Int, context: Context): Int {
 }
 
 class singleEventActivity : AppCompatActivity() {
+
+    private fun loadTheArticle(url: String, context: Context, success: (String) -> Unit, error: () -> Unit) {
+        val queue = Volley.newRequestQueue(context)
+        val request = object: StringRequest(Method.GET, url, Response.Listener<String> { str ->
+            success(str)
+        }, Response.ErrorListener { error ->
+            Log.d("request@newLoadEvents", error.toString())
+            error()
+        }){
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Accept-Encoding"] = "gzip, deflate, br"
+                headers["connection"] = "keep-alive"
+                headers["Accept-Language"] = "en-GB,en;q=0.9"
+                headers["Accept"] = "*/*"
+                headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+                return headers
+            }
+
+            override fun parseNetworkResponse(response: NetworkResponse): Response<String> {
+                var output: String? = ""
+                try {
+                    val gStream = GZIPInputStream(ByteArrayInputStream(response.data))
+                    val reader = InputStreamReader(gStream)
+                    val `in` = BufferedReader(reader)
+                    var read: String?
+                    while (`in`.readLine().also { read = it } != null) {
+                        output += read
+                    }
+                    reader.close()
+                    `in`.close()
+                    gStream.close()
+                } catch (e: IOException) {
+                    return Response.error(ParseError())
+                }
+                return Response.success(output, HttpHeaderParser.parseCacheHeaders(response))
+            }
+        }
+        queue.add(request)
+    }
 
     private fun findTheArticle (html: String) : String {
         var output = String()
@@ -92,15 +145,21 @@ class singleEventActivity : AppCompatActivity() {
 
         if (freeEvent != null){
             if (freeEvent!!.author == "Новости НГТУ"){
-                val url = URL(freeEvent!!.description)
+                val url = freeEvent!!.description
                 freeEvent!!.description = "Загрузка новости..."
                 list.adapter = singleEventAdapter(this, freeEvent!!)
                 thread {
-                    val html = url.readText()
-                    freeEvent!!.description = findTheArticle(html)
-                    this.runOnUiThread{
-                        list.adapter = singleEventAdapter(this, freeEvent!!)
-                    }
+                    loadTheArticle(url, this, success = { html ->
+                        freeEvent!!.description = findTheArticle(html)
+                        this.runOnUiThread {
+                            list.adapter = singleEventAdapter(this, freeEvent!!)
+                        }
+                    }, error = {
+                        freeEvent!!.description = "Не удалось загрузить новость :("
+                        this.runOnUiThread {
+                            list.adapter = singleEventAdapter(this, freeEvent!!)
+                        }
+                    })
                 }
             } else {
                 list.adapter = singleEventAdapter(this, freeEvent!!)
