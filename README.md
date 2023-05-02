@@ -1,6 +1,7 @@
-# NNTU Android app
-Source code of our Android app. We have been working on it for a year now, so many pieces of code may be dumb (we didn't know many things back then), but at least it works for now
-The Android version was made after the iOS one, the code is mostly similar except for some changes.
+### Приложение НГТУ для Android
 
-## What does it do?
-This app helps students with navigation around the university buildings, get marks, timetable and news quickly. 
+Мобильный помощник для студента с навигацией по корпусам, расписанием, задачами ~и оценками~
+
+Исходному коду очень требуется рефакторинг, сам по себе код достаточно старый. С вопросами по коду можно ходить к @alexxingplus или на a.chizberg@gmail.com
+
+Чтобы влить изменение, достаточно открыть пулл-реквест и получить аппрув
