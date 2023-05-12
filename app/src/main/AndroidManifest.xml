@@ -43,13 +43,11 @@
         <activity
             android:name=".ui.singleEditorDBTT"
             android:exported="true"
-            android:label="@string/title_activity_single_editor_d_b_t_t"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_single_editor_d_b_t_t"/>
         <activity
             android:name=".ui.DbttEditorActivity"
             android:exported="true"
-            android:label="@string/title_activity_dbtt_editor"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_dbtt_editor"/>
 
         <receiver
             android:name=".veryBig"
