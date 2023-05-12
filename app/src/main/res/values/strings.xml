@@ -1,13 +1,20 @@
 <resources>
     <string name="app_name">НГТУ</string>
+
+    <!-- Navigation -->
+    <string name="navigation_events_text">События</string>
+    <string name="navigation_timetable_text">Расписание</string>
+    <string name="navigation_tasks_text">Задачи</string>
+    <string name="navigation_more_text">Ещё</string>
+
     <string name="title_navigation">Навигация</string>
     <string name="title_marks">Оценки</string>
     <string name="title_news">Новости</string>
-    <string name="title_events">События</string>
+
     <string name="title_event">Событие</string>
     <string name="title_settings">Аккаунт</string>
     <string name="title_article">Новость</string>
-    <string name="title_timeTable">Расписание</string>
+
     <string name="title_timeTableEditor">Редактор расписания</string>
     <string name="code_Message">Для того, чтобы изменить расписание, необходим код</string>
     <string name="code_advise">Код можно получить, связавшись с нами: </string>
@@ -91,7 +98,7 @@
     <string name="Четная">Четная</string>
     <string name="Нечетная">Нечётная</string>
     <string name="Еще_действия">Ещё действия</string>
-    <string name="Ещё">Ещё</string>
+
     <string name="Отчество">Отчество</string>
     <string name="Номер_билета">№ билета</string>
     <string name="Виджет">Виджет обновляется каждые полчаса</string>
@@ -109,6 +116,6 @@
     <string name="Темная_тема">Автоматическая темная тема поддерживается на Android 10 и выше</string>
     <string name="title_activity_dbtt_editor">Редактор расписания</string>
     <string name="title_activity_single_editor_d_b_t_t">Редактор</string>
-    <string name="tasks_tab">Задачи</string>
+
 
 </resources>

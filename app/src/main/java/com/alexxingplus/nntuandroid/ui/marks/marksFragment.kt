@@ -16,7 +16,6 @@ import com.alexxingplus.nntuandroid.MainActivity
 import com.alexxingplus.nntuandroid.R
 import com.alexxingplus.nntuandroid.ui.AverageMarkActivity
 import com.alexxingplus.nntuandroid.ui.SingleMarkActivity
-import com.alexxingplus.nntuandroid.ui.news.updateLastID
 import com.android.volley.AuthFailureError
 import com.android.volley.NetworkResponse
 import com.android.volley.ParseError
@@ -25,8 +24,6 @@ import com.android.volley.toolbox.HttpHeaderParser
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import okhttp3.*
-import org.json.JSONException
-import org.json.JSONObject
 import org.jsoup.Jsoup
 import java.io.*
 import java.util.zip.GZIPInputStream
@@ -357,7 +354,7 @@ class DashboardFragment : Fragment() {
                 ViewModelProviders.of(this).get(DashboardViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
 
-        updateLastID(activity as MainActivity?, requireContext())
+        // updateLastID(activity as MainActivity?, requireContext())
 
         val markList = root.findViewById<ListView>(R.id.markList)
         val pullToRefresh = root.findViewById<SwipeRefreshLayout>(R.id.pullToRefreshMarks)

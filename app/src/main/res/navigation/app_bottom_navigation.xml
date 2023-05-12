@@ -2,9 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_timetable"
-    >
+    android:id="@+id/app_bottom_navigation"
+    app:startDestination="@id/navigation_timetable" >
 
     <fragment
         android:id="@+id/navigation_home"
@@ -21,41 +20,32 @@
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.alexxingplus.nntuandroid.ui.news.NotificationsFragment"
-        android:label="@string/title_events"
+        android:label="@string/navigation_events_text"
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_timetable"
         android:name="com.alexxingplus.nntuandroid.ui.timeTableFragment"
-        android:label="@string/title_timeTable"
-        tools:layout="@layout/fragment_time_table">
-    </fragment>
+        android:label="@string/navigation_timetable_text"
+        tools:layout="@layout/fragment_time_table" />
 
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.alexxingplus.nntuandroid.ui.settings"
-        android:label="@string/Ещё"
-        tools:layout="@layout/more_fragment">
-    </fragment>
+        android:label="@string/navigation_more_text"
+        tools:layout="@layout/more_fragment" />
 
     <fragment
-        android:id="@+id/navigation_tasks"
+        android:id="@+id/navigation_menu_tasks"
         android:name="com.alexxingplus.nntuandroid.ui.tasks.TaskFragment"
-        android:label="@string/tasks_tab"
-        tools:layout="@layout/fragment_task"/>
+        android:label="@string/navigation_tasks_text"
+        tools:layout="@layout/fragment_task" />
 
     <activity
         android:id="@+id/navigation_article"
         android:name="com.alexxingplus.nntuandroid.ui.ArticleActivity"
         android:label="@string/title_article"
-        tools:layout="@layout/activity_article">
-    </activity>
-
-
-
-
-
-
+        tools:layout="@layout/activity_article"/>
 
 
 </navigation>

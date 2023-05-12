@@ -14,7 +14,6 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.alexxingplus.nntuandroid.MoreRoomsActivity
@@ -22,11 +21,6 @@ import com.alexxingplus.nntuandroid.R
 import com.alexxingplus.nntuandroid.ui.getDefaults
 import com.alexxingplus.nntuandroid.ui.setDefaults
 import com.jsibbold.zoomage.ZoomageView
-import com.alexxingplus.nntuandroid.MainActivity
-import com.alexxingplus.nntuandroid.ui.news.loadLastID
-import com.alexxingplus.nntuandroid.ui.news.setBadge
-import kotlin.concurrent.thread
-import com.alexxingplus.nntuandroid.ui.news.updateLastID
 
 
 class HomeFragment : Fragment() {

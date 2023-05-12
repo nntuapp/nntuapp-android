@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexxingplus.nntuandroid.MainActivity
 import com.alexxingplus.nntuandroid.R
-import com.alexxingplus.nntuandroid.ui.news.updateLastID
 import java.util.*
 import kotlin.concurrent.thread
 
@@ -224,7 +223,7 @@ class timeTableFragment : Fragment() {
 
         //setup
         requireContext().setTheme(R.style.AppTheme)
-        updateLastID(activity as MainActivity?, requireContext())
+        // updateLastID(activity as MainActivity?, requireContext())
         val mode = getDefaults("mode", requireContext())
         if (mode == -1){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

@@ -236,7 +236,7 @@
                     android:layout_height="match_parent"
                     android:elevation="0dp"
                     style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                    android:text="@string/Ещё"/>
+                    android:text="@string/navigation_more_text"/>
 
             </LinearLayout>
 

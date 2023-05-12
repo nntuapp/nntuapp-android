@@ -329,7 +329,7 @@ class NotificationsFragment : Fragment() {
 
         var events = ArrayList<Event>()
 
-        resetBadge(activity as MainActivity?, requireContext())
+        // resetBadge(activity as MainActivity?, requireContext())
 
         val pullToRefresh = root.findViewById<SwipeRefreshLayout>(R.id.pullToRefreshNews)
         val newsView = root.findViewById<ListView>(R.id.newsList)

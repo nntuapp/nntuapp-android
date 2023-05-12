@@ -15,8 +15,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexxingplus.nntuandroid.MainActivity
 import com.alexxingplus.nntuandroid.R
-import com.alexxingplus.nntuandroid.ui.getDefaults
-import com.alexxingplus.nntuandroid.ui.news.updateLastID
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlin.concurrent.thread
 
@@ -39,7 +37,7 @@ class TaskFragment: Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_task, container, false)
 
-        updateLastID(activity as MainActivity?, requireContext())
+        // updateLastID(activity as MainActivity?, requireContext())
 
         var data = ArrayList<Task>()
         val provider = TaskProvider(requireContext())

@@ -20,9 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.news.singleEventActivity"
+        <activity
+            android:name=".ui.news.singleEventActivity"
             android:exported="true"
-            android:label="@string/title_event"/>
+            android:label="@string/title_event" />
         <activity
             android:name=".ui.teachers.SingleTeacherActivity"
             android:exported="true"
@@ -38,7 +39,7 @@
         <activity
             android:name=".ui.ShowALessonActivity"
             android:exported="true"
-            android:label="@string/title_timeTable" />
+            android:label="@string/navigation_timetable_text" />
         <activity
             android:name=".ui.singleEditorDBTT"
             android:exported="true"
@@ -50,7 +51,9 @@
             android:label="@string/title_activity_dbtt_editor"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <receiver android:name=".veryBig" android:exported="true">
+        <receiver
+            android:name=".veryBig"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -59,7 +62,9 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/very_big_info" />
         </receiver>
-        <receiver android:name=".smol" android:exported="true">
+        <receiver
+            android:name=".smol"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -92,19 +97,19 @@
         <activity
             android:name=".ui.tasks.TaskEditor"
             android:exported="true"
-            android:label="Создание задачи"/>
+            android:label="Создание задачи" />
         <activity
             android:name=".ui.tasks.SingleTask"
             android:exported="true"
-            android:label="Задача"/>
+            android:label="Задача" />
         <activity
             android:name=".ui.NavigationActivity"
             android:exported="true"
-            android:label="@string/title_navigation"/>
+            android:label="@string/title_navigation" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

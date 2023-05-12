@@ -174,44 +174,6 @@ var freeEvent : Event? = null
 
 var localID : Int? = null
 
-fun setBadge(value: Int, activity: MainActivity?){
-    if (activity != null){
-        activity.runOnUiThread{
-            activity.setBadge(value)
-        }
-    } else {
-        Log.d("Bagde didn't work", "setBadgeFailed, activity is null")
-    }
-}
-
-fun updateLastID(main: MainActivity?, context: Context){
-    thread {
-        loadLastID(context, success = { onlineID ->
-            val existingID = loadSavedID(context)
-            if (existingID == null) {
-                saveID(onlineID, context)
-                return@loadLastID
-            }
-            localID = onlineID
-            if (onlineID > existingID) {
-                setBadge(onlineID - existingID, main)
-            }
-        }, fail = {})
-    }
-}
-
-fun resetBadge(main: MainActivity?, context: Context){
-    setBadge(0, main)
-    thread {
-        loadLastID(context, success = { onlineID ->
-            saveID(onlineID, context)
-        }, fail = {
-            val id = localID ?: loadSavedID(context) ?: return@loadLastID
-            saveID(id, context)
-        })
-    }
-}
-
 fun saveID(ID: Int, context: Context) {
     setDefaults("lastID", ID, context)
 }

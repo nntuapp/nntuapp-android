@@ -3,11 +3,11 @@
     <string name="title_navigation">Navigation</string>
     <string name="title_marks">Marks</string>
     <string name="title_news">News</string>
-    <string name="title_events">Events</string>
+    <string name="navigation_events_text">Events</string>
     <string name="title_event">Event</string>
     <string name="title_settings">Account</string>
     <string name="title_article">Article</string>
-    <string name="title_timeTable">Timetable</string>
+    <string name="navigation_timetable_text">Timetable</string>
     <string name="title_timeTableEditor">Timetable editor</string>
     <string name="code_Message">You need a code to change the timetable</string>
     <string name="code_advise">You can get the code by contacting us: </string>
@@ -91,7 +91,7 @@
     <string name="Четная">Even</string>
     <string name="Нечетная">Odd</string>
     <string name="Еще_действия">More actions</string>
-    <string name="Ещё">More</string>
+    <string name="navigation_more_text">More</string>
     <string name="Отчество">Patronymic</string>
     <string name="Номер_билета">Student ID</string>
     <string name="Виджет">The widget updates every 30 minutes</string>
@@ -108,6 +108,6 @@
     <string name="Сообщение_с_кодом">Yes, it is. We need it to protect the timetable from harmful random changes. With giving a code we can be aware of who the person is and if something went wrong we can block the spammer and never give the code again. The code updates every 24 hours.</string>
     <string name="Темная_тема">Dark theme changes automatically on Android 10 and higher</string>
     <string name="title_activity_dbtt_editor">Timetable editor</string>
-    <string name="tasks_tab">Tasks</string>
+    <string name="navigation_tasks_text">Tasks</string>
 
 </resources>

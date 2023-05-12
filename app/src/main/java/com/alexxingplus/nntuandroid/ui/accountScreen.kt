@@ -16,14 +16,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.*
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
-import com.alexxingplus.nntuandroid.MainActivity
 
 import com.alexxingplus.nntuandroid.R
-import com.alexxingplus.nntuandroid.ui.news.updateLastID
 import com.alexxingplus.nntuandroid.ui.teachers.TeachersListActivity
-import me.grantland.widget.AutofitTextView
 
 fun String.capitalize() : String{
     var output = intern()
@@ -63,7 +59,6 @@ class settings : Fragment() {
         requireContext().setTheme(R.style.AppTheme)
 
         val root = inflater.inflate(R.layout.more_fragment, container, false)
-        updateLastID(activity as MainActivity?, requireContext())
 
         //userDefaults
         val userDefaults = activity?.getPreferences(Context.MODE_PRIVATE) ?: return root
