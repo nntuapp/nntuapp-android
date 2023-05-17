@@ -36,7 +36,7 @@
                 android:id="@+id/eventCardTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/NNTUblue"
+                android:background="?attr/colorPrimary"
                 android:padding="15dp"
                 android:orientation="vertical">
                 <LinearLayout

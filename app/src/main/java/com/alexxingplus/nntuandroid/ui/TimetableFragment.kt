@@ -3,7 +3,6 @@ package com.alexxingplus.nntuandroid.ui
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -13,7 +12,6 @@ import androidx.cardview.widget.CardView
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.alexxingplus.nntuandroid.MainActivity
 import com.alexxingplus.nntuandroid.R
 import java.util.*
 import kotlin.concurrent.thread
@@ -142,7 +140,7 @@ open class OnSwipeTouchListener(ctx: Context) : View.OnTouchListener {
     open fun onSwipeBottom() {}
 }
 
-class timeTableFragment : Fragment() {
+class TimetableFragment : Fragment() {
 
     var areAllActive: Boolean = false
     private var tt = ArrayList<Lesson>()
@@ -219,7 +217,7 @@ class timeTableFragment : Fragment() {
     ): View? {
         val days : Array<String> = arrayOf(getString(R.string.Понедельник), getString(R.string.Вторник), getString(R.string.Среда), getString(R.string.Четверг), getString(R.string.Пятница), getString(R.string.Суббота))
         // Inflate the layout for this fragment
-        val root =  inflater.inflate(R.layout.fragment_time_table, container, false)
+        val root =  inflater.inflate(R.layout.fragment_timetable, container, false)
 
         //setup
         requireContext().setTheme(R.style.AppTheme)

@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/NNTUblue</item>
-        <item name="colorPrimaryDark">#134C8D</item>
-        <item name="colorAccent">@color/NNTUblue</item>
-        <item name="cardBackgroundColor">@android:color/white</item>
-        <item name="colorSecondary">#0077FF</item>
-        <item name="color">#000000</item>
-        <item name="colorBackgroundFloating">#B3B3B3</item>
-        <item name="android:colorBackground">#FFFFFF</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="android:colorBackground">@color/colorBackgroundDark</item>
 
         <item name="android:statusBarColor">?attr/backgroundColor</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 </resources>

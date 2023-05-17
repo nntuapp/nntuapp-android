@@ -68,7 +68,7 @@
                     android:layout_width="35dp"
                     android:layout_height="match_parent"
                     style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                    android:tint="@color/NNTUblue"
+                    app:tint="?attr/colorPrimary"
                     android:src="@drawable/left_arrow" />
 
                 <TextView
@@ -91,7 +91,7 @@
                     android:layout_width="35dp"
                     android:layout_height="match_parent"
                     style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                    android:tint="@color/NNTUblue"
+                    app:tint="?attr/colorPrimary"
                     android:src="@drawable/right_arrow"/>
 
             </LinearLayout>
@@ -113,7 +113,7 @@
             android:background="@drawable/radius"
             android:elevation="10dp"
             android:src="@drawable/chart_24px"
-            android:tint="@color/NNTUblue"/>
+            app:tint="?attr/colorPrimary"/>
 
 
     </LinearLayout>

@@ -171,7 +171,7 @@
                         style="@style/Widget.AppCompat.Button.Borderless.Colored"
                         android:elevation="5dp"
                         android:src="@drawable/ic_sun"
-                        android:tint="@color/NNTUblue"/>
+                        app:tint="?attr/colorPrimary"/>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -314,7 +314,7 @@
                         style="@style/Widget.AppCompat.Button.Borderless.Colored"
                         android:elevation="5dp"
                         android:src="@drawable/ic_cloud_upload_24px"
-                        android:tint="@color/NNTUblue"/>
+                        app:tint="?attr/colorPrimary"/>
 
 
                 </LinearLayout>

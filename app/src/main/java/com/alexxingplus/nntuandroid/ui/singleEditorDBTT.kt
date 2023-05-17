@@ -60,7 +60,7 @@ class singleEditorDBTT : AppCompatActivity() {
 
         fun colorizeLabel(text: TextView,active: Boolean){
             if (active){
-                text.setTextColor(ContextCompat.getColor(this, R.color.NNTUblue))
+                text.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
             } else {
                 text.setTextColor(labelColor)
             }
@@ -91,7 +91,7 @@ class singleEditorDBTT : AppCompatActivity() {
 
         fun colorizeField(field: EditText, active: Boolean){
             if (active){
-                field.setTextColor(ContextCompat.getColor(this, R.color.NNTUblue))
+                field.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
             } else {
                 field.setTextColor(labelColor)
             }

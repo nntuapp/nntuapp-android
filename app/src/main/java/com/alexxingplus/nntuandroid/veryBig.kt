@@ -212,7 +212,7 @@ internal fun updateBigWidget(
 //        val dbHandler = DBHelper(requireContext(), null)
 //        val cursor = dbHandler.getAllRow()
 //        val loadedArray = ArrayList<DisTime>()
-//        // то же самое в timeTableFragment.kt
+//        // то же самое в TimetableFragment.kt
 //        cursor!!.moveToFirst()
 //
 //        //с помощью курсора он считывает данные со строк по определенным колонкам, и добавляет пару в массив пар

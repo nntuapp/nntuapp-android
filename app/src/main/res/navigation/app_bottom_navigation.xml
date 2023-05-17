@@ -25,9 +25,9 @@
 
     <fragment
         android:id="@+id/navigation_timetable"
-        android:name="com.alexxingplus.nntuandroid.ui.timeTableFragment"
+        android:name="com.alexxingplus.nntuandroid.ui.TimetableFragment"
         android:label="@string/navigation_timetable_text"
-        tools:layout="@layout/fragment_time_table" />
+        tools:layout="@layout/fragment_timetable" />
 
     <fragment
         android:id="@+id/navigation_settings"

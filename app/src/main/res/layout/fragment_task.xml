@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/add"
         android:tint="@android:color/white"
-        android:backgroundTint="@color/NNTUblue"
+        android:backgroundTint="?attr/colorPrimary"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="65dp"
         app:layout_constraintBottom_toBottomOf="parent"

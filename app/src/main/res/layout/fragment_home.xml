@@ -47,9 +47,6 @@
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:text="@string/Найти" />
 
-
-
-
     </LinearLayout>
 
     <ScrollView
@@ -214,12 +211,7 @@
                     android:typeface="normal"
                     android:layout_marginTop="-7dp"/>
 
-
             </LinearLayout>
-
-
-
-
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -248,16 +240,11 @@
                 android:layout_marginStart="10dp"
                 android:background="@drawable/radius"
                 android:src="@drawable/ic_rotate_right_black_24dp"
-                app:tint="@color/NNTUblue"/>
-
+                app:tint="?attr/colorPrimary"/>
 
         </LinearLayout>
 
-
-
     </ScrollView>
-
-
 
     <com.jsibbold.zoomage.ZoomageView
         android:id="@+id/theImage"
@@ -280,9 +267,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/controls"
         app:layout_constraintVertical_bias="0.0" />
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

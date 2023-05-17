@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:attr/colorBackground">
+    android:background="?attr/backgroundColor">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     android:padding="10dp"
                     android:text="!"
-                    android:textColor="@color/NNTUblue"/>
+                    android:textColor="?attr/colorPrimary"/>
 
                 <Button
                     android:id="@+id/taskMediumPriority"
@@ -108,7 +108,7 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     android:padding="10dp"
                     android:text="!!"
-                    android:textColor="@color/NNTUblue"/>
+                    android:textColor="?attr/colorPrimary"/>
 
                 <Button
                     android:id="@+id/taskHighPriority"
@@ -124,7 +124,7 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     android:padding="10dp"
                     android:text="!!!"
-                    android:textColor="@color/NNTUblue"/>
+                    android:textColor="?attr/colorPrimary"/>
 
             </LinearLayout>
 
@@ -144,7 +144,7 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:padding="10dp"
                 android:text="Выберите срок выполнения"
-                android:textColor="@color/NNTUblue"/>
+                android:textColor="?attr/colorPrimary"/>
         </LinearLayout>
     </ScrollView>
 
@@ -152,7 +152,7 @@
         android:id="@+id/taskDoneButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/NNTUblue"
+        android:backgroundTint="?attr/colorPrimary"
         android:contentDescription="new task"
         android:src="@drawable/ic_done"
         android:tint="@android:color/white"

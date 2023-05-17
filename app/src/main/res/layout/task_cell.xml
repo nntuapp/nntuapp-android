@@ -70,7 +70,7 @@
                 android:id="@+id/taskCellCheckBox"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:buttonTint="@color/NNTUblue" />
+                android:buttonTint="?attr/colorPrimary" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

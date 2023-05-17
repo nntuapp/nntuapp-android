@@ -44,7 +44,7 @@
                         android:textSize="17dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/lighterNNTUred"
+                        android:textColor="?attr/colorPrimary"
                         android:text="@string/Не_все_поля_заполнены"/>
 
                     <EditText
@@ -210,7 +210,7 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         android:padding="10dp"
                         android:text="❌  Выйти"
-                        android:textColor="@color/lighterNNTUred"/>
+                        android:textColor="?attr/colorPrimary"/>
 
                     <Button
                         android:id="@+id/editButton"
@@ -226,7 +226,7 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         android:padding="10dp"
                         android:text="✍️  Изменить"
-                        android:textColor="@color/NNTUblue"/>
+                        android:textColor="?attr/colorPrimary"/>
 
                     <Button
                         android:id="@+id/enterButton"
@@ -242,7 +242,7 @@
                         android:foreground="?android:attr/selectableItemBackground"
                         android:padding="10dp"
                         android:text="✅  Войти"
-                        android:textColor="@color/NNTUblue"/>
+                        android:textColor="?attr/colorPrimary"/>
 
                 </LinearLayout>
             </LinearLayout>

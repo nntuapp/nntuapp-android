@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.timeTableFragment"
+    tools:context=".ui.TimetableFragment"
     android:background="?android:attr/colorBackground"
     android:clipChildren="false"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -63,7 +63,7 @@
                 android:elevation="10dp"
                 android:src="@drawable/ic_settings_24px"
                 android:layout_marginEnd="10dp"
-                android:tint="@color/NNTUblue"/>
+                app:tint="?attr/colorPrimary"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -82,17 +82,17 @@
                     android:layout_width="35dp"
                     android:layout_height="match_parent"
                     style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                    android:tint="@color/NNTUblue"
+                    app:tint="?attr/colorPrimary"
                     android:src="@drawable/left_arrow" />
 
                 <TextView
                     android:id="@+id/weekLabel"
                     android:padding="10dp"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:text="@string/Понедельник"
                     android:fontFamily="sans-serif"
-                    android:textColor="?attr/color"
+                    android:textColor="?attr/colorPrimary"
                     android:textSize="17sp"
                     android:gravity="center"
                     android:layout_weight="1"/>
@@ -105,7 +105,7 @@
                     android:layout_width="35dp"
                     android:layout_height="match_parent"
                     style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                    android:tint="@color/NNTUblue"
+                    app:tint="?attr/colorPrimary"
                     android:src="@drawable/right_arrow"/>
 
             </LinearLayout>
@@ -126,7 +126,7 @@
             android:background="@drawable/radius"
             android:elevation="10dp"
             android:src="@drawable/ic_event_24px"
-            android:tint="@color/NNTUblue"/>
+            app:tint="?attr/colorPrimary"/>
 
 
     </LinearLayout>
