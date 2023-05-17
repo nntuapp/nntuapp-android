@@ -42,7 +42,7 @@
             android:label="@string/navigation_timetable_text" />
         <activity
             android:name=".ui.singleEditorDBTT"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".ui.DbttEditorActivity"
             android:exported="true"

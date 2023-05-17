@@ -37,9 +37,9 @@
 
     <fragment
         android:id="@+id/navigation_menu_tasks"
-        android:name="com.alexxingplus.nntuandroid.ui.tasks.TaskFragment"
+        android:name="com.alexxingplus.nntuandroid.ui.tasks.TasksFragment"
         android:label="@string/navigation_tasks_text"
-        tools:layout="@layout/fragment_task" />
+        tools:layout="@layout/fragment_tasks" />
 
     <activity
         android:id="@+id/navigation_article"

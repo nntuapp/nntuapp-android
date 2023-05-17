@@ -7,18 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.alexxingplus.nntuandroid.MainActivity
 import com.alexxingplus.nntuandroid.R
+import com.alexxingplus.nntuandroid.databinding.FragmentTasksBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlin.concurrent.thread
 
-class TaskFragment: Fragment() {
+class TasksFragment: Fragment() {
     private var updateClosure: (Task) -> Unit = {}
 
     override fun onResume() {
@@ -30,38 +29,42 @@ class TaskFragment: Fragment() {
         intentTask = null
     }
 
+    private var _binding: FragmentTasksBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_task, container, false)
+    ): View {
+        _binding = FragmentTasksBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         // updateLastID(activity as MainActivity?, requireContext())
 
         var data = ArrayList<Task>()
         val provider = TaskProvider(requireContext())
         val taskStorage = TaskStorage(requireContext(), null)
-        val list: ListView = root.findViewById(R.id.taskList)
+        /*val list: ListView = root.findViewById(R.id.taskList)
         val newTaskButton: FloatingActionButton = root.findViewById(R.id.newTaskButton)
         val ptr: SwipeRefreshLayout = root.findViewById(R.id.taskPtr)
-        var nothingFoundStack: LinearLayout = root.findViewById(R.id.nothingFoundStack)
-        val userDefaults = activity?.getPreferences(Context.MODE_PRIVATE) ?: return root
+        var nothingFoundStack: LinearLayout = root.findViewById(R.id.nothingFoundStack)*/
+        val userDefaults = activity?.getPreferences(Context.MODE_PRIVATE) ?: return view
         var group = userDefaults.getString("group", "")
         group = group?.replace("-", "")?.replace(" ", "")?.replace("_","")
         if (group == null || group.isEmpty()) {
-            newTaskButton.isVisible = false
-            newTaskButton.isEnabled = false
+            binding.newTaskButton.isVisible = false
+            binding.newTaskButton.isEnabled = false
         }
 
         fun nothingFound(shouldShow: Boolean) {
-            nothingFoundStack.isVisible = shouldShow
+            binding.noTasksLinearLayout.isVisible = shouldShow
         }
 
         fun reloadData(){
             requireActivity().runOnUiThread {
                 nothingFound(data.isEmpty())
-                val adapter = list.adapter as TaskAdapter
+                val adapter = binding.taskListView.adapter as TaskAdapter
                 adapter.tasks = ArrayList(data.sortedBy { it.deadline })
                 adapter.notifyDataSetChanged()
             }
@@ -76,7 +79,7 @@ class TaskFragment: Fragment() {
             }
         }
 
-        list.adapter = TaskAdapter(data, requireContext(), requireActivity(), taskStorage, deleteClosure)
+        binding.taskListView.adapter = TaskAdapter(data, requireContext(), requireActivity(), taskStorage, deleteClosure)
 
         thread {
             val localTasks = taskStorage.load()
@@ -87,17 +90,17 @@ class TaskFragment: Fragment() {
         }
 
         fun loadTasks(){
-            ptr.isRefreshing = true
+            binding.tasksSwipeRefreshLayout.isRefreshing = true
             val groupName = group ?: return
             provider.download(groupName) { tasks ->
                 if (tasks == null) {
-                    ptr.isRefreshing = false
+                    binding.tasksSwipeRefreshLayout.isRefreshing = false
                     return@download
                 }
                 data = combine(local = data, net = tasks)
                 taskStorage.save(data)
                 reloadData()
-                ptr.isRefreshing = false
+                binding.tasksSwipeRefreshLayout.isRefreshing = false
             }
         }
 
@@ -109,17 +112,22 @@ class TaskFragment: Fragment() {
         }
 
         loadTasks()
-        ptr.setOnRefreshListener {
+        binding.tasksSwipeRefreshLayout.setOnRefreshListener {
             loadTasks()
         }
 
-        newTaskButton.setOnClickListener {
+        binding.newTaskButton.setOnClickListener {
             val groupName = group ?: return@setOnClickListener
             val intent = Intent(requireContext(), TaskEditor::class.java)
             intent.putExtra("group", groupName)
             requireContext().startActivity(intent)
         }
-        return root
+        return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private class TaskAdapter(

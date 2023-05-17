@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">NNTU</string>
+    <string name="app_name">NNSTU</string>
     <string name="title_navigation">Navigation</string>
     <string name="title_marks">Marks</string>
     <string name="title_news">News</string>

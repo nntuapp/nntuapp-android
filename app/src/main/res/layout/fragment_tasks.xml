@@ -1,45 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/tasksContainer"
     android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    android:layout_height="match_parent">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/taskPtr"
+        android:id="@+id/tasks_swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ListView
-            android:id="@+id/taskList"
+            android:id="@+id/task_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipChildren="false"
             android:divider="@null"
             android:dividerHeight="0dp"
-            android:paddingBottom="50dp"
-            android:clipChildren="false"/>
+            android:paddingBottom="50dp" />
+
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/newTaskButton"
+        android:id="@+id/new_task_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/add"
-        android:tint="@android:color/white"
-        android:backgroundTint="?attr/colorPrimary"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="65dp"
+        android:backgroundTint="?attr/colorPrimary"
+        android:contentDescription="new task"
+        android:src="@drawable/add"
+        android:tint="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="new task" />
-
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
-        android:id="@+id/nothingFoundStack"
+        android:id="@+id/no_tasks_linear_layout"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/taskPtr"
+        app:layout_constraintBottom_toBottomOf="@+id/tasks_swipe_refresh_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -51,7 +52,6 @@
             android:textAlignment="center"
             android:textColor="?attr/color"
             android:textSize="50sp" />
-
 
         <TextView
             android:layout_width="wrap_content"

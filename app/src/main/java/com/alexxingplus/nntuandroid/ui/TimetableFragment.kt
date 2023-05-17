@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.cardview.widget.CardView
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.alexxingplus.nntuandroid.R
+import com.alexxingplus.nntuandroid.databinding.FragmentTimetableBinding
 import java.util.*
 import kotlin.concurrent.thread
 
@@ -26,11 +26,11 @@ fun String.lowerBound (input: String) : Int {
 }
 
 fun String.suffix (from: Int) : String {
-    try {
-        return intern().substring(startIndex = from, endIndex = intern().length)
+    return try {
+        intern().substring(startIndex = from, endIndex = intern().length)
     } catch (e: Exception){
         Log.d("Ошибка в suffix", e.toString())
-        return ""
+        ""
     }
 }
 
@@ -211,16 +211,16 @@ class TimetableFragment : Fragment() {
         }
     }
 
+    private var _binding: FragmentTimetableBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val days : Array<String> = arrayOf(getString(R.string.Понедельник), getString(R.string.Вторник), getString(R.string.Среда), getString(R.string.Четверг), getString(R.string.Пятница), getString(R.string.Суббота))
-        // Inflate the layout for this fragment
-        val root =  inflater.inflate(R.layout.fragment_timetable, container, false)
+    ): View {
+        _binding = FragmentTimetableBinding.inflate(inflater, container, false)
+        val view = binding.root
 
-        //setup
-        requireContext().setTheme(R.style.AppTheme)
         // updateLastID(activity as MainActivity?, requireContext())
         val mode = getDefaults("mode", requireContext())
         if (mode == -1){
@@ -231,15 +231,7 @@ class TimetableFragment : Fragment() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
-        val pullToRefresh = root.findViewById<SwipeRefreshLayout>(R.id.pullToRefreshTimeTable)
-        val list : ListView = root.findViewById(R.id.timeTableList)
-        val prevWeek: ImageButton = root.findViewById(R.id.prevWeekButton)
-        val nextWeek: ImageButton = root.findViewById(R.id.nextWeekButton)
-        val weekLabel: TextView = root.findViewById(R.id.weekLabel)
-        val calendarButton: ImageButton = root.findViewById(R.id.calendarButton)
-        val goToSettingsButton: ImageButton = root.findViewById(R.id.newSettingsButtonFromTT)
-
-        val userDefaults = activity?.getPreferences(Context.MODE_PRIVATE) ?: return root
+        val userDefaults = activity?.getPreferences(Context.MODE_PRIVATE) ?: return view
         var i = 0
         val entered = userDefaults.getBoolean("entered", false)
         val group = userDefaults.getString("group", "") ?: ""
@@ -253,18 +245,18 @@ class TimetableFragment : Fragment() {
         areAllActive = getDefaults("areAllActive", context) ?: 0 == 1
 
         val adapter = TTadapter(requireContext(), tt, nowWeek, areAllActive)
-        list.adapter = adapter
-        adapterToUpdate = list.adapter as TTadapter
+        binding.timetableListView.adapter = adapter
+        adapterToUpdate = binding.timetableListView.adapter as TTadapter
         val db = DBHelper(requireContext(), null)
 
         fun updateScreen(){
             if (nowWeek <= 0){
                 nowWeek = 0
-                prevWeek.isClickable = false
-                prevWeek.alpha = 0.5F
+                binding.prevWeekImageButton.isClickable = false
+                binding.prevWeekImageButton.alpha = 0.5F
             } else {
-                prevWeek.isClickable = true
-                prevWeek.alpha = 1F
+                binding.prevWeekImageButton.isClickable = true
+                binding.prevWeekImageButton.alpha = 1F
             }
 
             val boldStart = if (getActualWeek() == nowWeek) "<b>" else ""
@@ -274,7 +266,7 @@ class TimetableFragment : Fragment() {
 
             val tempWeekLabel = "$colorTag$boldStart$nowWeek неделя $boldEnd</font>"
 
-            weekLabel.setText(HtmlCompat.fromHtml(tempWeekLabel, HtmlCompat.FROM_HTML_MODE_LEGACY))
+            binding.weekTextView.text = HtmlCompat.fromHtml(tempWeekLabel, HtmlCompat.FROM_HTML_MODE_LEGACY)
             adapter.tt = getTTForView(tt, nowWeek)
             adapter.week = nowWeek
             adapter.notifyDataSetChanged()
@@ -314,14 +306,14 @@ class TimetableFragment : Fragment() {
                                 this.activity?.runOnUiThread{
                                     adapter.tt = getTTForView(tt, nowWeek)
                                     adapter.notifyDataSetChanged()
-                                    pullToRefresh.isRefreshing = false
+                                    binding.timetableSwipeRefreshLayout.isRefreshing = false
                                 }
                             } else {
                                 this.activity?.runOnUiThread{
                                     Toast.makeText(requireContext(), "Расписание не было загружено", Toast.LENGTH_SHORT).show()
                                     adapter.tt = getTTForView(tt, nowWeek)
                                     adapter.notifyDataSetChanged()
-                                    pullToRefresh.isRefreshing = false
+                                    binding.timetableSwipeRefreshLayout.isRefreshing = false
                                 }
                             }
                         })
@@ -330,7 +322,7 @@ class TimetableFragment : Fragment() {
                     this.activity?.runOnUiThread{
                         adapter.tt = getTTForView(tt, nowWeek)
                         adapter.notifyDataSetChanged()
-                        pullToRefresh.isRefreshing = false
+                        binding.timetableSwipeRefreshLayout.isRefreshing = false
                     }
                     if (calSync && isAdded){
                         addTTtoCalendar(requireActivity(), tt)
@@ -339,12 +331,12 @@ class TimetableFragment : Fragment() {
             }
         }
 
-        nextWeek.setOnClickListener {
+        binding.nextWeekButton.setOnClickListener {
             nowWeek += 1
             updateScreen()
         }
 
-        prevWeek.setOnClickListener {
+        binding.prevWeekImageButton.setOnClickListener {
             nowWeek -= 1
             updateScreen()
         }
@@ -357,14 +349,14 @@ class TimetableFragment : Fragment() {
             updateTT()
         }
 
-        pullToRefresh.setProgressViewOffset(false, 80, 150)
+        binding.timetableSwipeRefreshLayout.setProgressViewOffset(false, 80, 150)
 
-        pullToRefresh.setOnRefreshListener {
+        binding.timetableSwipeRefreshLayout.setOnRefreshListener {
             loadLocalTT()
             updateTT()
         }
 
-        calendarButton.setOnClickListener {
+        binding.calendarImageButton.setOnClickListener {
             val c = Calendar.getInstance()
             val year = c.get(Calendar.YEAR)
             val month = c.get(Calendar.MONTH)
@@ -373,7 +365,7 @@ class TimetableFragment : Fragment() {
 
             val dpd = DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 // Display Selected date in textbox
-                weekLabel.setText("" + dayOfMonth + " " + monthOfYear.toString() + ", " + year)
+                binding.weekTextView.setText("" + dayOfMonth + " " + monthOfYear.toString() + ", " + year)
                 val moment = Calendar.getInstance(Locale.GERMANY)
                 moment.set(year, monthOfYear, dayOfMonth)
 
@@ -388,14 +380,19 @@ class TimetableFragment : Fragment() {
             dpd.show()
         }
 
-        goToSettingsButton.setOnClickListener {
+        binding.settingsImageButton.setOnClickListener {
             val intent = Intent(requireContext(), CodeActivity::class.java)
             intent.putExtra("entered", userDefaults.getBoolean("entered", false))
             intent.putExtra("group", userDefaults.getString("group", "").toString())
             requireContext().startActivity(intent)
         }
 
-        return root
+        return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private class TTadapter (context : Context, data: ArrayList<Lesson>, week: Int, areAllActive: Boolean): BaseAdapter() {
