@@ -45,10 +45,6 @@ class TasksFragment: Fragment() {
         var data = ArrayList<Task>()
         val provider = TaskProvider(requireContext())
         val taskStorage = TaskStorage(requireContext(), null)
-        /*val list: ListView = root.findViewById(R.id.taskList)
-        val newTaskButton: FloatingActionButton = root.findViewById(R.id.newTaskButton)
-        val ptr: SwipeRefreshLayout = root.findViewById(R.id.taskPtr)
-        var nothingFoundStack: LinearLayout = root.findViewById(R.id.nothingFoundStack)*/
         val userDefaults = activity?.getPreferences(Context.MODE_PRIVATE) ?: return view
         var group = userDefaults.getString("group", "")
         group = group?.replace("-", "")?.replace(" ", "")?.replace("_","")

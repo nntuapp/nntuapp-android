@@ -4,7 +4,7 @@
     <string name="app_name">НГТУ</string>
 
     <!-- Navigation -->
-    <string name="navigation_events_text">События</string>
+    <string name="navigation_news_text">Новости</string>
     <string name="navigation_timetable_text">Расписание</string>
     <string name="navigation_tasks_text">Задачи</string>
     <string name="navigation_more_text">Ещё</string>

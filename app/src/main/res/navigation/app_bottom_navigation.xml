@@ -3,25 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_bottom_navigation"
-    app:startDestination="@id/navigation_timetable" >
+    app:startDestination="@id/navigation_timetable">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.alexxingplus.nntuandroid.ui.home.HomeFragment"
-        android:label="@string/title_navigation"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.alexxingplus.nntuandroid.ui.marks.DashboardFragment"
-        android:label="@string/title_marks"
-        tools:layout="@layout/fragment_dashboard" />
-
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.alexxingplus.nntuandroid.ui.news.NotificationsFragment"
-        android:label="@string/navigation_events_text"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_news"
+        android:name="com.alexxingplus.nntuandroid.ui.news.NewsFragment"
+        android:label="@string/navigation_news_text"
+        tools:layout="@layout/fragment_news" />
 
     <fragment
         android:id="@+id/navigation_timetable"
@@ -30,22 +18,15 @@
         tools:layout="@layout/fragment_timetable" />
 
     <fragment
-        android:id="@+id/navigation_settings"
-        android:name="com.alexxingplus.nntuandroid.ui.settings"
-        android:label="@string/navigation_more_text"
-        tools:layout="@layout/more_fragment" />
-
-    <fragment
-        android:id="@+id/navigation_menu_tasks"
+        android:id="@+id/navigation_tasks"
         android:name="com.alexxingplus.nntuandroid.ui.tasks.TasksFragment"
         android:label="@string/navigation_tasks_text"
         tools:layout="@layout/fragment_tasks" />
 
-    <activity
-        android:id="@+id/navigation_article"
-        android:name="com.alexxingplus.nntuandroid.ui.ArticleActivity"
-        android:label="@string/title_article"
-        tools:layout="@layout/activity_article"/>
-
+    <fragment
+        android:id="@+id/navigation_more"
+        android:name="com.alexxingplus.nntuandroid.ui.settings"
+        android:label="@string/navigation_more_text"
+        tools:layout="@layout/fragment_more" />
 
 </navigation>

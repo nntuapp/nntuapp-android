@@ -58,7 +58,7 @@ class settings : Fragment() {
     ): View? {
         requireContext().setTheme(R.style.AppTheme)
 
-        val root = inflater.inflate(R.layout.more_fragment, container, false)
+        val root = inflater.inflate(R.layout.fragment_more, container, false)
 
         //userDefaults
         val userDefaults = activity?.getPreferences(Context.MODE_PRIVATE) ?: return root

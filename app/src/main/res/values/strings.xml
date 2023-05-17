@@ -4,7 +4,7 @@
     <string name="title_navigation">Navigation</string>
     <string name="title_marks">Marks</string>
     <string name="title_news">News</string>
-    <string name="navigation_events_text">Events</string>
+    <string name="navigation_news_text">News</string>
     <string name="title_event">Event</string>
     <string name="title_settings">Account</string>
     <string name="title_article">Article</string>

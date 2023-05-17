@@ -11,22 +11,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
-import androidx.core.graphics.toColor
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.alexxingplus.nntuandroid.MainActivity
 import com.alexxingplus.nntuandroid.R
-import com.alexxingplus.nntuandroid.ui.ArticleActivity
-import com.alexxingplus.nntuandroid.ui.eventsURL
 import com.android.volley.*
 import com.android.volley.toolbox.HttpHeaderParser
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import org.jsoup.Jsoup
-import retrofit2.http.GET
 import java.io.BufferedReader
 import java.io.ByteArrayInputStream
 import java.io.IOException
@@ -77,7 +71,7 @@ fun isColorDark(color: Int): Boolean {
     }
 }
 
-class NotificationsFragment : Fragment() {
+class NewsFragment : Fragment() {
     fun String.upperBound (input: String) : Int {
         return intern().indexOf(input) + input.length
     }
@@ -325,7 +319,7 @@ class NotificationsFragment : Fragment() {
     ): View? {
         notificationsViewModel =
                 ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
+        val root = inflater.inflate(R.layout.fragment_news, container, false)
 
         var events = ArrayList<Event>()
 
